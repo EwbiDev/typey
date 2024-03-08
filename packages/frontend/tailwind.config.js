@@ -12,7 +12,8 @@ export default {
         "typey-secondary": "#75AAA1",
         "typey-default": "#EAEAEA",
         "typey-ok": "#88EE57",
-        "typey-bad": "#F16647"
+        "typey-bad": "#F16647",
+        "typey-badder": "#C13607"
       }
     },
   },
