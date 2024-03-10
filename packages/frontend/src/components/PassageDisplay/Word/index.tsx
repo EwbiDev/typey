@@ -8,15 +8,11 @@ export default function Word({
   const letterArray = word.expect.split("");
   const { userInput } = word;
 
-  const wordRef: React.MutableRefObject<HTMLElement | null> = useRef(null);
+  const wordRef: React.MutableRefObject<HTMLDivElement | null> = useRef(null);
 
   useEffect(() => {
-    if (word.index === wordIndex) {
-      const wordRects = wordRef.current?.getClientRects()[0];
-
-      if (wordRects) {
-        positionCaret(wordRects, word.expect, userInput);
-      }
+    if (wordRef.current && word.index === wordIndex) {
+      positionCaret(wordRef.current, userInput);
     }
   }, [positionCaret, userInput, word.expect, word.index, wordIndex]);
 

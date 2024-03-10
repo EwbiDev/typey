@@ -13,20 +13,21 @@ export default function PassageDisplay({
     useRef(null);
 
   const positionCaret = useCallback(
-    (wordRects: Passage.WordRects, expectedInput: string, userInput: string) => {
+    (wordRef: HTMLDivElement, userInput: string) => {
       if (displayRef.current) {
-        const { x: wordX, y: wordY, width: wordWidth } = wordRects;
-        const { x: displayX, y: displayY } =
-          displayRef.current.getBoundingClientRect();
-
-        let offset = wordWidth
-
-        if (userInput.length < expectedInput.length) {
-          offset *= (userInput.length / expectedInput.length)
+        let letter: {x: number, y: number};
+        if (userInput.length) {
+          const letterRect = wordRef.children[userInput.length - 1].getClientRects()[0];
+          letter = {x: letterRect.right, y: letterRect.y}
+        } else {
+          const letterRect = wordRef.children[userInput.length].getClientRects()[0];
+          letter = {x: letterRect.left, y: letterRect.y}
         }
 
-        const x = wordX - displayX + offset - 2;
-        const y = wordY - displayY;
+        const display = displayRef.current.getBoundingClientRect();
+
+        const x = letter.x - display.x - 2;
+        const y = letter.y - display.y;
 
         setCaretLoc({ x, y });
         return;

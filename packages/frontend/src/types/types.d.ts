@@ -33,7 +33,7 @@ declare namespace Passage {
     };
 
     type Word = {
-      positionCaret: (wordRects: WordRects, expectedInput: string, userInput: string) => void;
+      positionCaret: (wordRef: HTMLDivElement, userInput: string) => void;
       word: Passage.Word;
       wordIndex: number;
     };
