@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState, MutableRefObject } from "react";
 import PassageDisplay from "../PassageDisplay";
 
 const dummyText =
@@ -10,6 +10,9 @@ export default function PassageInput() {
     setupPassageText(shortText),
   );
   const [wordIndex, setWordIndex] = useState(0);
+  const [inputFocus, setInputFocus] = useState(false);
+
+  const inputRef: MutableRefObject<HTMLInputElement | null> = useRef(null);
 
   const prevWord = passageText[wordIndex - 1] || null;
   const curWord = passageText[wordIndex];
@@ -58,16 +61,42 @@ export default function PassageInput() {
     }
   }
 
+  function handleFocusClick() {
+    if (!inputFocus) {
+      inputRef.current?.focus();
+    }
+  }
+
   return (
     <>
-      <input
-        className="w-24 text-black"
-        value={curWord.userInput}
-        onChange={handleOnChange}
-        onKeyDown={handleKeyDown}
-      />
-      <PassageDisplay passageText={passageText} wordIndex={wordIndex} />
+      <div className="relative" onClick={handleFocusClick}>
+        <PassageDisplay
+          passageText={passageText}
+          wordIndex={wordIndex}
+          hasFocus={inputFocus}
+        />
+        <input
+          className="absolute cursor-default select-none opacity-0"
+          ref={inputRef}
+          value={curWord.userInput}
+          onChange={handleOnChange}
+          onFocus={() => setInputFocus(true)}
+          onBlur={() => setInputFocus(false)}
+          onKeyDown={handleKeyDown}
+          tabIndex={0}
+        />
+        {!inputFocus && (
+          <div
+            className="absolute bottom-1/2 right-1/2 w-48 translate-x-1/2 translate-y-1/2 cursor-pointer text-center blur-0"
+            onClick={() => inputRef.current?.focus()}
+          >
+            Click to focus
+          </div>
+        )}
+      </div>
+
       {passageComplete ? "Complete" : "NotComplete"}
+      <div className="cursor-pointer blur-sm"></div>
     </>
   );
 }

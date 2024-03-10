@@ -10,8 +10,9 @@ declare namespace Passage {
     type Display = {
       wordIndex: number;
       passageText: Passage.Word[];
+      hasFocus: boolean;
     };
-    
+
     type ExtraLetters = {
       word: Passage.Word;
     };
