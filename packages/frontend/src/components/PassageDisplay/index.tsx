@@ -42,7 +42,7 @@ export default function PassageDisplay({
     <>
       {hasFocus && <Caret loc={caretLoc} />}
       <div
-        className={`text-typey-secondary flex min-h-24 select-none flex-wrap ${!hasFocus && "cursor-pointer blur"}`}
+        className={`text-typey-secondary flex items-start min-h-24 select-none flex-wrap ${!hasFocus && "cursor-pointer blur"}`}
         ref={displayRef}
       >
         {passageText.map((word, mapIndex) => (
