@@ -1,6 +1,24 @@
-export default function Word({ word, wordIndex }: Passage.Prop.Word) {
+import { useEffect, useRef } from "react";
+
+export default function Word({
+  word,
+  wordIndex,
+  positionCaret,
+}: Passage.Prop.Word) {
   const letterArray = word.expect.split("");
   const { userInput } = word;
+
+  const wordRef: React.MutableRefObject<HTMLElement | null> = useRef(null);
+
+  useEffect(() => {
+    if (word.index === wordIndex) {
+      const wordRects = wordRef.current?.getClientRects()[0];
+
+      if (wordRects) {
+        positionCaret(wordRects, word.expect, userInput);
+      }
+    }
+  }, [positionCaret, userInput, word.expect, word.index, wordIndex]);
 
   function setLetterClass(letter: string, letterIndex: number) {
     if (userInput && userInput[letterIndex] === letter) {
@@ -25,7 +43,7 @@ export default function Word({ word, wordIndex }: Passage.Prop.Word) {
   }
 
   return (
-    <span className={setWordClass()}>
+    <span className={setWordClass()} ref={wordRef}>
       {letterArray.map((letter, letterIndex) => (
         <>
           <span
