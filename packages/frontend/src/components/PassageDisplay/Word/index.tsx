@@ -14,7 +14,7 @@ export default function Word({
     if (wordRef.current && word.index === wordIndex) {
       positionCaret(wordRef.current, userInput);
     }
-  }, [positionCaret, userInput, word.expect, word.index, wordIndex]);
+  }, [positionCaret, userInput, word.index, wordIndex]);
 
   function setLetterClass(letter: string, letterIndex: number) {
     if (userInput && userInput[letterIndex] === letter) {
