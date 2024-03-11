@@ -5,7 +5,6 @@ export default function Word({
   wordIndex,
   positionCaret,
 }: Passage.Prop.Word) {
-  const letterArray = word.expect.split("");
   const { userInput } = word;
 
   const wordRef: React.MutableRefObject<HTMLDivElement | null> = useRef(null);
@@ -28,6 +27,8 @@ export default function Word({
     ) {
       return "text-typey-bad";
     }
+
+    return "";
   }
 
   function setWordClass() {
@@ -40,23 +41,37 @@ export default function Word({
 
   return (
     <span className={setWordClass()} ref={wordRef}>
-      {letterArray.map((letter, letterIndex) => (
-        <>
-          <span
-            className={setLetterClass(letter, letterIndex)}
-            key={`passageLetter-${wordIndex}${letterIndex}`}
-          >
-            {letter}
-          </span>
-        </>
-      ))}
+      <ExpectedLetters
+        setLetterClass={setLetterClass}
+        word={word}
+      />
       <ExtraLetters word={word} />
     </span>
   );
 }
 
+function ExpectedLetters({
+  setLetterClass,
+  word,
+}: Passage.Prop.ExpectedLetters) {
+  return (
+    <>
+      {word.expect.letters.map((letter, letterIndex) => (
+        <>
+          <span
+            className={setLetterClass(letter.char, letterIndex)}
+            key={`passageLetter-${letterIndex}`}
+          >
+            {letter.char}
+          </span>
+        </>
+      ))}
+    </>
+  );
+}
+
 function ExtraLetters({ word }: Passage.Prop.ExtraLetters) {
-  const wordLength = word.expect.length;
+  const wordLength = word.expect.word.length;
   const extras = word.userInput.substring(wordLength).split("");
 
   return (

@@ -11,7 +11,10 @@ declare namespace Passage {
   }
 
   type Word = {
-    expect: string;
+    expect: {
+      word: string;
+      letters: {char: string, perfect: boolean}[]
+    };
     userInput: string;
     index: number;
     match: boolean;
@@ -27,6 +30,11 @@ declare namespace Passage {
       passageText: Passage.Word[];
       hasFocus: boolean;
     };
+
+    type ExpectedLetters = {
+      setLetterClass: (letter: string, letterIndex: number) => string;
+      word: Passage.Word;
+    }
 
     type ExtraLetters = {
       word: Passage.Word;

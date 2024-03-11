@@ -17,9 +17,7 @@ export default function PassageInput() {
   const prevWord = passageText[wordIndex - 1] || null;
   const curWord = passageText[wordIndex];
 
-  const passageComplete = passageText.every(
-    (word) => word.expect === word.userInput,
-  );
+  const passageComplete = passageText.every((word) => word.match);
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     if (
@@ -34,22 +32,19 @@ export default function PassageInput() {
   }
 
   function handleOnChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const input = event.target.value;
+    let input = event.target.value;
     const lastInput = input[input.length - 1];
     if (
       !passageComplete &&
-      input.length < curWord.expect.length + 10 &&
+      input.length < curWord.expect.word.length + 10 &&
       (prevWord === null || prevWord.match)
     ) {
-      if (lastInput === " " && wordIndex + 1 < passageText.length) {
-        curWord.match = curWord.expect === curWord.userInput;
+      if (lastInput === " ") {
         setWordIndex((i) => i + 1);
-        return;
+        input = input.slice(0, input.length - 1);
       }
 
-      if (lastInput === " ") {
-        return;
-      }
+      curWord.match = curWord.expect.word === input;
 
       const newPassageText = passageText.map((word, index) => {
         if (index === wordIndex) {
@@ -102,8 +97,14 @@ export default function PassageInput() {
 }
 
 function setupPassageText(inputText: string): Passage.Word[] {
+  function mapLetters(word: string) {
+    return word.split("").map((letter) => ({ char: letter, perfect: true }));
+  }
   return inputText.split(" ").map((word, index) => ({
-    expect: word,
+    expect: {
+      word,
+      letters: mapLetters(word),
+    },
     userInput: "",
     index,
     match: false,
