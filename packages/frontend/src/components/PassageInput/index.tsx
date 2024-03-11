@@ -1,4 +1,4 @@
-import { useRef, useState, MutableRefObject } from "react";
+import { useRef, useState, MutableRefObject, useEffect } from "react";
 import PassageDisplay from "../PassageDisplay";
 
 const dummyText =
@@ -12,6 +12,11 @@ export default function PassageInput() {
   const [wordIndex, setWordIndex] = useState(0);
   const [inputFocus, setInputFocus] = useState(false);
 
+  const [passageStartTime, setPassageStartTime] = useState(0);
+  const [passageEndTime, setPassageEndTime] = useState(0);
+  const [passageKeyCounts, setPassageKeyCounts] =
+    useState<Passage.AccuracyStats>();
+
   const inputRef: MutableRefObject<HTMLInputElement | null> = useRef(null);
 
   const prevWord = passageText[wordIndex - 1] || null;
@@ -20,8 +25,7 @@ export default function PassageInput() {
   const passageComplete = passageText.every((word) => word.match);
 
   if (passageComplete) {
-    const counts = countAccuracy(passageText);
-    console.log(counts);
+    console.log(passageEndTime - passageStartTime, passageKeyCounts);
   }
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -40,6 +44,16 @@ export default function PassageInput() {
     let input = event.target.value;
     const inputIndex = input.length - 1;
     const lastInput = input[inputIndex];
+
+    if (!passageStartTime) {
+      setPassageStartTime(Date.now());
+    }
+
+    if (passageComplete && !passageEndTime) {
+      setPassageEndTime(Date.now());
+      setPassageKeyCounts(countAccuracy(passageText));
+    }
+
     if (
       !passageComplete &&
       input.length < curWord.expect.word.length + 10 &&
@@ -57,7 +71,10 @@ export default function PassageInput() {
         expectedLetter.perfect = false;
       }
 
-      if (input.length > curWord.expect.word.length && input.length > curWord.userInput.length) {
+      if (
+        input.length > curWord.expect.word.length &&
+        input.length > curWord.userInput.length
+      ) {
         curWord.extraCount++;
       }
 
@@ -140,7 +157,7 @@ function countAccuracy(passageText: Passage.Word[]) {
         counts.miss++;
       }
     });
-    counts.extras += word.extraCount
+    counts.extras += word.extraCount;
   });
 
   return counts;

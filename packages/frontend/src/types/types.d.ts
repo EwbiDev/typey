@@ -1,4 +1,10 @@
 declare namespace Passage {
+  type AccuracyStats = {
+    hit: number;
+    miss: number;
+    extras: number;
+  }
+
   type ElementLoc = {
     x: number;
     y: number;
