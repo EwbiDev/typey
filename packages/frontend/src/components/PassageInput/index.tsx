@@ -19,6 +19,11 @@ export default function PassageInput() {
 
   const passageComplete = passageText.every((word) => word.match);
 
+  if (passageComplete) {
+    const counts = countAccuracy(passageText);
+    console.log(counts);
+  }
+
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     if (
       event.key === "Backspace" &&
@@ -33,7 +38,8 @@ export default function PassageInput() {
 
   function handleOnChange(event: React.ChangeEvent<HTMLInputElement>) {
     let input = event.target.value;
-    const lastInput = input[input.length - 1];
+    const inputIndex = input.length - 1;
+    const lastInput = input[inputIndex];
     if (
       !passageComplete &&
       input.length < curWord.expect.word.length + 10 &&
@@ -45,6 +51,15 @@ export default function PassageInput() {
       }
 
       curWord.match = curWord.expect.word === input;
+
+      const expectedLetter = curWord.expect.letters[inputIndex];
+      if (expectedLetter?.perfect && expectedLetter.char !== lastInput) {
+        expectedLetter.perfect = false;
+      }
+
+      if (input.length > curWord.expect.word.length && input.length > curWord.userInput.length) {
+        curWord.extraCount++;
+      }
 
       const newPassageText = passageText.map((word, index) => {
         if (index === wordIndex) {
@@ -98,7 +113,9 @@ export default function PassageInput() {
 
 function setupPassageText(inputText: string): Passage.Word[] {
   function mapLetters(word: string) {
-    return word.split("").map((letter) => ({ char: letter, perfect: true }));
+    return word
+      .split("")
+      .map((letter, index) => ({ char: letter, index, perfect: true }));
   }
   return inputText.split(" ").map((word, index) => ({
     expect: {
@@ -108,5 +125,23 @@ function setupPassageText(inputText: string): Passage.Word[] {
     userInput: "",
     index,
     match: false,
+    extraCount: 0,
   }));
+}
+
+function countAccuracy(passageText: Passage.Word[]) {
+  const counts = { hit: 0, miss: 0, extras: 0 };
+
+  passageText.forEach((word) => {
+    word.expect.letters.forEach((letter) => {
+      if (letter.perfect) {
+        counts.hit++;
+      } else {
+        counts.miss++;
+      }
+    });
+    counts.extras += word.extraCount
+  });
+
+  return counts;
 }

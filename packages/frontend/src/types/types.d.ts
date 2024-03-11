@@ -4,20 +4,23 @@ declare namespace Passage {
     y: number;
   };
 
+  type Letter = { char: string; index: number; perfect: boolean };
+
   type WordRects = {
     x: number;
     y: number;
     width: number;
-  }
+  };
 
   type Word = {
     expect: {
       word: string;
-      letters: {char: string, perfect: boolean}[]
+      letters: Passage.Letter[];
     };
     userInput: string;
     index: number;
     match: boolean;
+    extraCount: number;
   };
 
   declare namespace Prop {
@@ -34,9 +37,15 @@ declare namespace Passage {
     type ExpectedLetters = {
       setLetterClass: (letter: string, letterIndex: number) => string;
       word: Passage.Word;
-    }
+    };
 
     type ExtraLetters = {
+      word: Passage.Word;
+    };
+
+    type Letter = {
+      className: string;
+      letter: Passage.Letter;
       word: Passage.Word;
     };
 
