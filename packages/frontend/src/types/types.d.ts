@@ -3,7 +3,7 @@ declare namespace Passage {
     hit: number;
     miss: number;
     extras: number;
-  }
+  };
 
   type ElementLoc = {
     x: number;
@@ -69,10 +69,24 @@ declare namespace Passage {
       word: Passage.Word;
     };
 
+    type StatDisplay = {
+      passageStats: Passage.Stats;
+    };
+
     type Word = {
       positionCaret: (wordRef: HTMLDivElement, userInput: string) => void;
       word: Passage.Word;
       wordIndex: number;
+    };
+  }
+}
+
+declare namespace Common {
+  namespace Prop {
+    type Button = {
+      onClick: () => unknown;
+      text: string;
+      type: "primaryEmpty" | "secondaryFull";
     };
   }
 }

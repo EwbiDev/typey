@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PassageInput from "../PassageInput";
+import PassageStatDisplay from "../PassageStatDisplay";
 
 const dummyText =
   "Ah, the art of typing, a dance of fingers across the keyboard, creating symphonies of words and sentences in the digital realm. As we press down on those keys, we embark on a journey through the vast landscape of cyberspace, weaving thoughts and ideas into existence. The rhythmic click-clack, a testament to our communication prowess, echoes through the virtual corridors, transforming thoughts into tangible text.";
@@ -14,19 +15,18 @@ export default function PassageContainer() {
 
   const passageComplete = passage.every((word) => word.match);
 
-  if (passageComplete) {
-    console.log(passageStats);
-  }
-
   return (
     <div className="flex grow flex-col justify-center">
-      <PassageInput
-        passage={passage}
-        passageComplete={passageComplete}
-        passageStats={passageStats}
-        setPassage={setPassage}
-        setPassageStats={setPassageStats}
-      />
+      {!passageComplete && (
+        <PassageInput
+          passage={passage}
+          passageComplete={passageComplete}
+          passageStats={passageStats}
+          setPassage={setPassage}
+          setPassageStats={setPassageStats}
+        />
+      )}
+      {passageComplete && <PassageStatDisplay passageStats={passageStats} />}
     </div>
   );
 }

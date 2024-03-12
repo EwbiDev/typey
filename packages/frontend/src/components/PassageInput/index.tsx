@@ -113,8 +113,6 @@ export default function PassageInput({
           </div>
         )}
       </div>
-
-      {passageComplete ? "Complete" : "NotComplete"}
       <div className="cursor-pointer blur-sm"></div>
     </>
   );
