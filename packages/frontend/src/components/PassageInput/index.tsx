@@ -78,13 +78,13 @@ export default function PassageInput() {
         curWord.extraCount++;
       }
 
-      const newPassageText = passage.map((word, index) => {
+      const updatedPassage = passage.map((word, index) => {
         if (index === wordIndex) {
           word.userInput = input;
         }
         return word;
       });
-      setPassage(newPassageText);
+      setPassage(updatedPassage);
     }
   }
 
