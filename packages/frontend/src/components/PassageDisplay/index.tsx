@@ -5,7 +5,7 @@ import Word from "./Word";
 export default function PassageDisplay({
   hasFocus,
   wordIndex,
-  passageText,
+  passage,
 }: Passage.Prop.Display) {
   const [caretLoc, setCaretLoc] = useState({ x: 0, y: 0 });
 
@@ -45,7 +45,7 @@ export default function PassageDisplay({
         className={`text-typey-secondary flex items-start min-h-24 select-none flex-wrap ${!hasFocus && "cursor-pointer blur"}`}
         ref={displayRef}
       >
-        {passageText.map((word, mapIndex) => (
+        {passage.map((word, mapIndex) => (
           <Word
             word={word}
             wordIndex={wordIndex}

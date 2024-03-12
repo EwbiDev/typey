@@ -6,7 +6,7 @@ const dummyText =
 const shortText = "oeu nth oeu nth";
 
 export default function PassageInput() {
-  const [passageText, setPassageText] = useState<Passage.Word[]>(
+  const [passage, setPassage] = useState<Passage.Word[]>(
     setupPassageText(shortText),
   );
   const [wordIndex, setWordIndex] = useState(0);
@@ -19,10 +19,10 @@ export default function PassageInput() {
 
   const inputRef: MutableRefObject<HTMLInputElement | null> = useRef(null);
 
-  const prevWord = passageText[wordIndex - 1] || null;
-  const curWord = passageText[wordIndex];
+  const prevWord = passage[wordIndex - 1] || null;
+  const curWord = passage[wordIndex];
 
-  const passageComplete = passageText.every((word) => word.match);
+  const passageComplete = passage.every((word) => word.match);
 
   if (passageComplete) {
     console.log(passageEndTime - passageStartTime, passageKeyCounts);
@@ -34,7 +34,7 @@ export default function PassageInput() {
       curWord.userInput.length === 0 &&
       wordIndex > 0
     ) {
-      passageText[wordIndex - 1].userInput += " ";
+      passage[wordIndex - 1].userInput += " ";
       setWordIndex((i) => i - 1);
       return;
     }
@@ -51,7 +51,7 @@ export default function PassageInput() {
 
     if (passageComplete && !passageEndTime) {
       setPassageEndTime(Date.now());
-      setPassageKeyCounts(countAccuracy(passageText));
+      setPassageKeyCounts(countAccuracy(passage));
     }
 
     if (
@@ -78,13 +78,13 @@ export default function PassageInput() {
         curWord.extraCount++;
       }
 
-      const newPassageText = passageText.map((word, index) => {
+      const newPassageText = passage.map((word, index) => {
         if (index === wordIndex) {
           word.userInput = input;
         }
         return word;
       });
-      setPassageText(newPassageText);
+      setPassage(newPassageText);
     }
   }
 
@@ -98,7 +98,7 @@ export default function PassageInput() {
     <>
       <div className="relative" onClick={handleFocusClick}>
         <PassageDisplay
-          passageText={passageText}
+          passage={passage}
           wordIndex={wordIndex}
           hasFocus={inputFocus}
         />
@@ -146,10 +146,10 @@ function setupPassageText(inputText: string): Passage.Word[] {
   }));
 }
 
-function countAccuracy(passageText: Passage.Word[]) {
+function countAccuracy(passage: Passage.Word[]) {
   const counts = { hit: 0, miss: 0, extras: 0 };
 
-  passageText.forEach((word) => {
+  passage.forEach((word) => {
     word.expect.letters.forEach((letter) => {
       if (letter.perfect) {
         counts.hit++;

@@ -36,7 +36,7 @@ declare namespace Passage {
 
     type Display = {
       wordIndex: number;
-      passageText: Passage.Word[];
+      passage: Passage.Word[];
       hasFocus: boolean;
     };
 
