@@ -29,6 +29,12 @@ declare namespace Passage {
     extraCount: number;
   };
 
+  type Stats = {
+    startTime: number;
+    endTime: number;
+    accuracy: Passage.AccuracyStats;
+  };
+
   declare namespace Prop {
     type Caret = {
       loc: Passage.ElementLoc;
@@ -47,6 +53,14 @@ declare namespace Passage {
 
     type ExtraLetters = {
       word: Passage.Word;
+    };
+
+    type Input = {
+      passage: Passage.Word[];
+      passageComplete: boolean;
+      passageStats: Passage.Stats;
+      setPassage: React.Dispatch<React.SetStateAction<Passage.Word[]>>;
+      setPassageStats: React.Dispatch<React.SetStateAction<Passage.Stats>>;
     };
 
     type Letter = {
