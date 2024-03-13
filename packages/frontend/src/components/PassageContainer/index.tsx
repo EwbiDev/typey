@@ -2,8 +2,6 @@ import { useState } from "react";
 import PassageInput from "../PassageInput";
 import PassageStatDisplay from "../PassageStatDisplay";
 
-const dummyText =
-  "Ah, the art of typing, a dance of fingers across the keyboard, creating symphonies of words and sentences in the digital realm. As we press down on those keys, we embark on a journey through the vast landscape of cyberspace, weaving thoughts and ideas into existence. The rhythmic click-clack, a testament to our communication prowess, echoes through the virtual corridors, transforming thoughts into tangible text.";
 const shortText = "oeu nth oeu nth";
 
 export default function PassageContainer() {
