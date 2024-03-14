@@ -34,7 +34,12 @@ export default function PassageContainer() {
           setWordIndex={setWordIndex}
         />
       )}
-      {passageComplete && <PassageStatDisplay passageStats={passageStats} />}
+      {passageComplete && (
+        <PassageStatDisplay
+          passageStats={passageStats}
+          replayPassage={replayPassage}
+        />
+      )}
       <PassageControls replayPassage={replayPassage} />
     </div>
   );

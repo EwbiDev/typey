@@ -82,6 +82,7 @@ declare namespace Passage {
 
     type StatDisplay = {
       passageStats: Passage.Stats;
+      replayPassage: () => void;
     };
 
     type Word = {

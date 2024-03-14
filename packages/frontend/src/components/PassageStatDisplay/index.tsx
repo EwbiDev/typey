@@ -2,6 +2,7 @@ import Button from "../Button";
 
 export default function PassageStatDisplay({
   passageStats,
+  replayPassage,
 }: Passage.Prop.StatDisplay) {
   const { startTime, endTime, accuracy } = passageStats;
 
@@ -27,7 +28,7 @@ export default function PassageStatDisplay({
         </div>
       </div>
       <div className="flex h-full justify-around gap-4 text-center">
-        <Button onClick={() => {}} text={"Retry"} type="primaryEmpty" />
+        <Button onClick={replayPassage} text={"Retry"} type="primaryEmpty" />
         <Button onClick={() => {}} text={"Next Passage"} type="secondaryFull" />
       </div>
     </div>
