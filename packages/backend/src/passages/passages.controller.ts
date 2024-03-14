@@ -30,6 +30,24 @@ export class PassagesController {
     return this.passagesService.meta();
   }
 
+  @Get('random')
+  async findRandom(tryCount = 0) {
+    if (tryCount > 5) {
+      return {
+        statusCode: 500,
+        message: 'Internal server error: my randomness hack has broken',
+      };
+    }
+
+    const { count } = await this.passagesService.meta();
+    try {
+      const randomInt = Math.floor(Math.random() * count) + 1;
+      return this.findOne(String(randomInt));
+    } catch (e) {
+      this.findRandom(tryCount + 1);
+    }
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.passagesService.findOne(+id);
