@@ -7,8 +7,9 @@ export default function PassageInput({
   passageStats,
   setPassage,
   setPassageStats,
+  setWordIndex,
+  wordIndex,
 }: Passage.Prop.Input) {
-  const [wordIndex, setWordIndex] = useState(0);
   const [inputFocus, setInputFocus] = useState(false);
 
   const inputRef: MutableRefObject<HTMLInputElement | null> = useRef(null);

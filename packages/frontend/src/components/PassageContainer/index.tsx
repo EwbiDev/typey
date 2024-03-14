@@ -11,6 +11,7 @@ export default function PassageContainer() {
   );
   const [passageStats, setPassageStats] =
     useState<Passage.Stats>(setupPassageStats());
+  const [wordIndex, setWordIndex] = useState(0);
 
   const passageComplete = passage.every((word) => word.match);
 
@@ -23,6 +24,8 @@ export default function PassageContainer() {
           passageStats={passageStats}
           setPassage={setPassage}
           setPassageStats={setPassageStats}
+          wordIndex={wordIndex}
+          setWordIndex={setWordIndex}
         />
       )}
       {passageComplete && <PassageStatDisplay passageStats={passageStats} />}
