@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import PageHeader from "./components/PageHeader";
 import PassageContainer from "./components/PassageContainer";
-import { Navigate, Routes, Route } from "react-router-dom";
+import { useNavigate, Routes, Route } from "react-router-dom";
+import { passageApi } from "./utils/api";
 
 export default function App() {
   return (
@@ -9,11 +11,11 @@ export default function App() {
         <div className="container mx-8 flex h-full w-full flex-col">
           <PageHeader />
           <Routes>
-            <Route path="/" element={<Home />} />
             <Route
               path="/passage/:passageId"
               element={<PassageContainer />}
             ></Route>
+            <Route path="/*" element={<Home />} />
           </Routes>
         </div>
       </div>
@@ -22,5 +24,14 @@ export default function App() {
 }
 
 function Home() {
-  return <Navigate to={"/passage/1"} />;
+  const navigate = useNavigate();
+  useEffect(() => {
+    async function getRandomPassage() {
+      const response = await passageApi.getRandom();
+      const newPassage = response.data;
+      navigate(`/passage/${newPassage.id}`);
+    }
+    getRandomPassage();
+  }, [navigate]);
+  return <></>;
 }

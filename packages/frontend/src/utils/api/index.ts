@@ -15,6 +15,10 @@ class PassageApi {
   async getById(id:number) {
     return await instance.get(`${this.#endpoint}/${id}`)
   }
+
+  async getRandom() {
+    return await instance.get(`${this.#endpoint}/random`)
+  }
 }
 
 const passageApi = new PassageApi();
