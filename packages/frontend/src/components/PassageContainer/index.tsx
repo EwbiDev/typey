@@ -1,22 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import PassageInput from "../PassageInput";
 import PassageStatDisplay from "../PassageStatDisplay";
 import PassageControls from "../PassageControls";
 
-const shortText = "oeu nth oeu nth";
+import { passageApi } from "../../utils/api";
 
 export default function PassageContainer() {
+  const { passageId } = useParams();
+  
   const [passage, setPassage] = useState<Passage.Word[]>(
-    setupPassage(shortText),
+    setupPassage("Loading Data"),
   );
   const [passageStats, setPassageStats] =
     useState<Passage.Stats>(setupPassageStats());
   const [wordIndex, setWordIndex] = useState(0);
 
-  const passageComplete = passage.every((word) => word.match);
+  const passageComplete = passage?.every((word) => word.match);
+
+  useEffect(() => {
+    async function newPassageText() {
+      const data = await passageApi.getById(Number(passageId));
+      if (data.statusText === "OK") {
+        const newPassage = setupPassage(data.data.text);
+        setPassage(newPassage);
+        setPassageStats(setupPassageStats);
+        setWordIndex(0);
+      }
+    }
+    newPassageText();
+  }, [passageId]);
 
   function replayPassage() {
-    setPassage(clearPassageAttempt(passage));
+    if (passage) {
+      setPassage(clearPassageAttempt(passage));
+    }
     setPassageStats(setupPassageStats);
     setWordIndex(0);
   }
