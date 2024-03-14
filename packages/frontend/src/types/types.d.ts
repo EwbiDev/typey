@@ -42,7 +42,7 @@ declare namespace Passage {
 
     type ControlIcon = {
       iconName: string;
-    }
+    };
 
     type Display = {
       wordIndex: number;
