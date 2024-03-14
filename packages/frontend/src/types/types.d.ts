@@ -40,6 +40,10 @@ declare namespace Passage {
       loc: Passage.ElementLoc;
     };
 
+    type ControlIcon = {
+      iconName: string;
+    }
+
     type Display = {
       wordIndex: number;
       passage: Passage.Word[];

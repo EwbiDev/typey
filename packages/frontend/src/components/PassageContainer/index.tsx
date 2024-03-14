@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PassageInput from "../PassageInput";
 import PassageStatDisplay from "../PassageStatDisplay";
+import PassageControls from "../PassageControls";
 
 const shortText = "oeu nth oeu nth";
 
@@ -14,7 +15,7 @@ export default function PassageContainer() {
   const passageComplete = passage.every((word) => word.match);
 
   return (
-    <div className="flex grow flex-col justify-center">
+    <div className="flex grow flex-col justify-center gap-8">
       {!passageComplete && (
         <PassageInput
           passage={passage}
@@ -25,6 +26,7 @@ export default function PassageContainer() {
         />
       )}
       {passageComplete && <PassageStatDisplay passageStats={passageStats} />}
+      <PassageControls />
     </div>
   );
 }
