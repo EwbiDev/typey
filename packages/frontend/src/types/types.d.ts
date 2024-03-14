@@ -40,8 +40,13 @@ declare namespace Passage {
       loc: Passage.ElementLoc;
     };
 
+    type Controls = {
+      replayPassage: () => void;
+    };
+
     type ControlIcon = {
       iconName: string;
+      onClick: () => unknown;
     };
 
     type Display = {
@@ -65,6 +70,8 @@ declare namespace Passage {
       passageStats: Passage.Stats;
       setPassage: React.Dispatch<React.SetStateAction<Passage.Word[]>>;
       setPassageStats: React.Dispatch<React.SetStateAction<Passage.Stats>>;
+      setWordIndex: React.Dispatch<React.SetStateAction<number>>;
+      wordIndex: number;
     };
 
     type Letter = {

@@ -15,6 +15,12 @@ export default function PassageContainer() {
 
   const passageComplete = passage.every((word) => word.match);
 
+  function replayPassage() {
+    setPassage(clearPassageAttempt(passage));
+    setPassageStats(setupPassageStats);
+    setWordIndex(0);
+  }
+
   return (
     <div className="flex grow flex-col justify-center gap-8">
       {!passageComplete && (
@@ -29,7 +35,7 @@ export default function PassageContainer() {
         />
       )}
       {passageComplete && <PassageStatDisplay passageStats={passageStats} />}
-      <PassageControls />
+      <PassageControls replayPassage={replayPassage} />
     </div>
   );
 }
@@ -50,6 +56,20 @@ function setupPassage(inputText: string): Passage.Word[] {
     match: false,
     extraCount: 0,
   }));
+}
+
+function clearPassageAttempt(passage: Passage.Word[]): Passage.Word[] {
+  return passage.map((word) => {
+    word.userInput = "";
+    word.match = false;
+    word.extraCount = 0;
+    word.expect.letters.map((letter) => {
+      letter.perfect = true;
+      return letter;
+    });
+
+    return word;
+  });
 }
 
 function setupPassageStats() {
