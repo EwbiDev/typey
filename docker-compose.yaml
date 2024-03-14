@@ -2,6 +2,7 @@ services:
   frontend:
     build:
       context: .
+      target: frontend
     ports:
       - 9876:80
     volumes:
@@ -11,6 +12,7 @@ services:
   backend:
     build:
       context: .
+      target: backend
     environment:
       - DATABASE_DB=${DB_NAME}
       - DATABASE_USER=${DB_USER}
@@ -18,8 +20,9 @@ services:
       - DATABASE_HOST=db
       - SERVER_HOST=backend
       - SERVER_PORT=8766
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:${DB_PORT}/${DB_NAME}
     ports:
-      - ${SERVER_PORT}:${SERVER_PORT}
+      - 8766:8766
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
