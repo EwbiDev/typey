@@ -28,4 +28,9 @@ export class PassagesService {
   remove(id: number) {
     return `This action removes a #${id} passage`;
   }
+
+  async meta() {
+    const count = await this.prisma.passage.count();
+    return { count };
+  }
 }

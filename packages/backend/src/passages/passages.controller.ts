@@ -25,6 +25,11 @@ export class PassagesController {
     return this.passagesService.findAll();
   }
 
+  @Get('meta')
+  findMeta() {
+    return this.passagesService.meta();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.passagesService.findOne(+id);
