@@ -9,8 +9,12 @@ WORKDIR /usr/src/app
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run -r build
 RUN pnpm deploy --filter=frontend --prod /prod/frontend
-RUN pnpm deploy --filter=backend --prod /prod/packages/backend
-
+RUN pnpm deploy --filter=backend --prod /prod/backend
 
 FROM nginx:1.25.4-alpine AS frontend
 COPY --from=build /prod/frontend/dist /usr/share/nginx/html
+
+FROM base AS backend
+COPY --from=build /prod/backend/ /prod/backend
+WORKDIR /prod/backend
+CMD [ "pnpm", "start:prod" ]

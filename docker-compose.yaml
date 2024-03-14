@@ -6,44 +6,36 @@ services:
       - 9876:80
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    # networks:
-    #   - public
-    # depends_on:
-    #   - backend
-  # backend:
-  #   build:
-  #     args:
-  #       - NODE_ENV=development
-  #     context: backend
-  #     target: dev-envs
-  #   command: pnpm run start-watch
-  #   environment:
-  #     - DATABASE_DB=typey
-  #     - DATABASE_USER=root
-  #     - DATABASE_PASSWORD=/run/secrets/db-password
-  #     - DATABASE_HOST=db
-  #     - NODE_ENV=development
-  #   # ports:
-  #   #   - 8765:8765
-  #   secrets:
-  #     - db-password
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #   networks:
-  #     - private
-  #   depends_on:
-  #     - db
+    depends_on:
+      - backend
+  backend:
+    build:
+      context: .
+    environment:
+      - DATABASE_DB=${DB_NAME}
+      - DATABASE_USER=${DB_USER}
+      - DATABASE_PASSWORD=${DB_PASSWORD}
+      - DATABASE_HOST=db
+      - SERVER_HOST=backend
+      - SERVER_PORT=8766
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - db
   db:
     image: postgres
     restart: always
     user: postgres
-    secrets:
-      - db-password
     volumes:
       - db-data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=typey
-      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - ${DB_PORT}:${DB_PORT}
     expose:
       - 5432
     healthcheck:
@@ -53,6 +45,3 @@ services:
       retries: 5
 volumes:
   db-data:
-secrets:
-  db-password:
-    file: db/password.txt
