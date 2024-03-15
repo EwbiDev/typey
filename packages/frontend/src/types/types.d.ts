@@ -41,6 +41,8 @@ declare namespace Passage {
     };
 
     type Controls = {
+      prevPassage: () => void;
+      nextPassage: () => void;
       replayPassage: () => void;
     };
 

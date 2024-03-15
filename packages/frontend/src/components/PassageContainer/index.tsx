@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import PassageInput from "../PassageInput";
 import PassageStatDisplay from "../PassageStatDisplay";
@@ -9,13 +9,15 @@ import { passageApi } from "../../utils/api";
 
 export default function PassageContainer() {
   const { passageId } = useParams();
-  
+
   const [passage, setPassage] = useState<Passage.Word[]>(
     setupPassage("Loading Data"),
   );
   const [passageStats, setPassageStats] =
     useState<Passage.Stats>(setupPassageStats());
   const [wordIndex, setWordIndex] = useState(0);
+
+  const navigate = useNavigate();
 
   const passageComplete = passage?.every((word) => word.match);
 
@@ -31,6 +33,18 @@ export default function PassageContainer() {
     }
     newPassageText();
   }, [passageId]);
+
+  function nextPassage() {
+    if (passageId) {
+      navigate(`/passage/${Number(passageId) + 1}`);
+    }
+  }
+
+  function prevPassage() {
+    if (passageId && Number(passageId) > 1) {
+      navigate(`/passage/${Number(passageId) - 1}`);
+    }
+  }
 
   function replayPassage() {
     if (passage) {
@@ -59,7 +73,11 @@ export default function PassageContainer() {
           replayPassage={replayPassage}
         />
       )}
-      <PassageControls replayPassage={replayPassage} />
+      <PassageControls
+        prevPassage={prevPassage}
+        nextPassage={nextPassage}
+        replayPassage={replayPassage}
+      />
     </div>
   );
 }
