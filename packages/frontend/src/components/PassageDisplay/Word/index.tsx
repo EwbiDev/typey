@@ -57,14 +57,12 @@ function ExpectedLetters({
   return (
     <>
       {word.expect.letters.map((letter, letterIndex) => (
-        <>
-          <span
-            className={setLetterClass(letter.char, letterIndex)}
-            key={`passageLetter-${letterIndex}`}
-          >
-            {letter.char}
-          </span>
-        </>
+        <span
+          className={setLetterClass(letter.char, letterIndex)}
+          key={`passageLetter-${letterIndex}`}
+        >
+          {letter.char}
+        </span>
       ))}
     </>
   );
