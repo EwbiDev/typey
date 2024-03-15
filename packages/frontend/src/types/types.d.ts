@@ -83,6 +83,7 @@ declare namespace Passage {
     };
 
     type StatDisplay = {
+      nextPassage: () => void;
       passageStats: Passage.Stats;
       replayPassage: () => void;
     };
