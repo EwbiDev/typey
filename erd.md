@@ -44,6 +44,9 @@ erDiagram
   PASSAGE {
     int id PK
     int submitter_id FK
+
+    string title
+    string author
     string text
 
     date date_created
