@@ -7,10 +7,12 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { PassagesService } from './passages.service';
 import { CreatePassageDto } from './dto/create-passage.dto';
 import { UpdatePassageDto } from './dto/update-passage.dto';
 
+@ApiTags('passages')
 @Controller('passages')
 export class PassagesController {
   constructor(private readonly passagesService: PassagesService) {}
