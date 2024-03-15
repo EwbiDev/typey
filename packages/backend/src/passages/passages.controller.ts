@@ -7,10 +7,11 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { PassagesService } from './passages.service';
 import { CreatePassageDto } from './dto/create-passage.dto';
 import { UpdatePassageDto } from './dto/update-passage.dto';
+import { PassageEntity } from './entities/passage.entity';
 
 @ApiTags('passages')
 @Controller('passages')
@@ -23,6 +24,7 @@ export class PassagesController {
   }
 
   @Get()
+  @ApiOkResponse({ type: PassageEntity, isArray: true })
   findAll() {
     return this.passagesService.findAll();
   }
@@ -33,6 +35,7 @@ export class PassagesController {
   }
 
   @Get('random')
+  @ApiOkResponse({ type: PassageEntity })
   async findRandom(tryCount = 0) {
     if (tryCount > 5) {
       return {
@@ -51,16 +54,19 @@ export class PassagesController {
   }
 
   @Get(':id')
+  @ApiOkResponse({ type: PassageEntity })
   findOne(@Param('id') id: string) {
     return this.passagesService.findOne(+id);
   }
 
   @Patch(':id')
+  @ApiOkResponse({ type: PassageEntity })
   update(@Param('id') id: string, @Body() updatePassageDto: UpdatePassageDto) {
     return this.passagesService.update(+id, updatePassageDto);
   }
 
   @Delete(':id')
+  @ApiOkResponse({ type: PassageEntity })
   remove(@Param('id') id: string) {
     return this.passagesService.remove(+id);
   }
