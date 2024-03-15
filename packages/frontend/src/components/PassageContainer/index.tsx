@@ -70,6 +70,7 @@ export default function PassageContainer() {
       {passageComplete && (
         <PassageStatDisplay
           nextPassage={nextPassage}
+          passage={passage}
           passageStats={passageStats}
           replayPassage={replayPassage}
         />

@@ -2,20 +2,32 @@ import Button from "../Button";
 
 export default function PassageStatDisplay({
   nextPassage,
+  passage,
   passageStats,
   replayPassage,
 }: Passage.Prop.StatDisplay) {
   const { startTime, endTime, accuracy } = passageStats;
 
-  const passageTime = ((endTime - startTime) / 1000).toFixed(2);
+  const passageTime = (endTime - startTime) / 1000;
   const accuracyNum = (accuracy.hit / (accuracy.hit + accuracy.miss)) * 100;
+
+  // assume 5 chars per word, including spaces
+  const wordCount = passage.reduce((totalChars, word) => totalChars + word.userInput.length + 1, -1) / 5;
+
+  const wpm = wordCount * (60 / passageTime);
 
   return (
     <div className="flex items-center justify-around">
       <div className="text-2xl text-typey-primary">Completed!</div>
       <div className="text-typey-primary">
         <div>
-          Time: <span className="text-typey-secondary">{passageTime}s</span>
+          WPM: <span className="text-typey-secondary">{wpm.toFixed(2)}</span>
+        </div>
+        <div>
+          Time:{" "}
+          <span className="text-typey-secondary">
+            {passageTime.toFixed(2)}s
+          </span>
         </div>
         <div>
           Accuracy:{" "}

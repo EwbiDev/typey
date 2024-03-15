@@ -84,6 +84,7 @@ declare namespace Passage {
 
     type StatDisplay = {
       nextPassage: () => void;
+      passage: Passage.Word[];
       passageStats: Passage.Stats;
       replayPassage: () => void;
     };
