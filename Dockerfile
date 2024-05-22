@@ -12,6 +12,7 @@ RUN pnpm deploy --filter=frontend --prod /prod/frontend
 RUN pnpm deploy --filter=backend --prod /prod/backend
 
 FROM nginx:1.25.4-alpine AS frontend
+COPY --from=build /prod/frontend/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /prod/frontend/dist /usr/share/nginx/html
 
 FROM base AS backend
