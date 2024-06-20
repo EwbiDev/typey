@@ -28,7 +28,9 @@ services:
     depends_on:
       - db
   db:
-    image: postgres
+    build:
+      context: .
+      target: db
     restart: always
     user: postgres
     volumes:
