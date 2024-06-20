@@ -10,6 +10,10 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm run -r build
 RUN pnpm deploy --filter=frontend --prod /prod/frontend
 RUN pnpm deploy --filter=backend --prod /prod/backend
+RUN mkdir -p /sql && cat packages/backend/prisma/migrations/*/*.sql > /sql/init.sql
+
+FROM postgres:16.3-alpine3.20 AS db
+COPY --from=build /sql/init.sql /docker-entrypoint-initdb.d/init.sql
 
 FROM nginx:1.25.4-alpine AS frontend
 COPY --from=build /prod/frontend/nginx.conf /etc/nginx/conf.d/default.conf
