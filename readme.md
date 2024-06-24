@@ -4,6 +4,8 @@
 
 A monorepo typing app with user submitted passages. It allows users to practice their typing skills, track their progress, and improve their speed and accuracy over time.
 
+![Typey Demo](typey-demo.gif)
+
 ## Requirements
 
 You will need the following installed on your system:
