@@ -8,7 +8,9 @@ export class PassagesService {
   constructor(private prisma: PrismaService) {}
 
   create(createPassageDto: CreatePassageDto) {
-    return 'This action adds a new passage';
+    return this.prisma.passage.create({
+      data: createPassageDto,
+    });
   }
 
   async findAll() {
