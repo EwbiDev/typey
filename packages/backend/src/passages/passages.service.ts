@@ -28,7 +28,11 @@ export class PassagesService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} passage`;
+    return this.prisma.passage.delete({
+      where: {
+        id,
+      },
+    });
   }
 
   async meta() {
