@@ -114,7 +114,6 @@ export default function PassageInput({
           </div>
         )}
       </div>
-      <div className="cursor-pointer blur-sm"></div>
     </>
   );
 }
