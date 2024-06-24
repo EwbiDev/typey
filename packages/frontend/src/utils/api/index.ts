@@ -11,12 +11,32 @@ class PassageApi {
     return await instance.get(this.#endpoint);
   }
 
-  async getById(id:number) {
-    return await instance.get(`${this.#endpoint}/${id}`)
+  async getById(id: number) {
+    try {
+      return await instance.get(`${this.#endpoint}/${id}`);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        return err.response;
+      }
+    }
   }
 
   async getRandom() {
-    return await instance.get(`${this.#endpoint}/random`)
+    try {
+      return await instance.get(`${this.#endpoint}/random`);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        return err.response;
+      }
+    }
+  }
+
+  async post(textInput: string) {
+    const data = {
+      text: textInput,
+    };
+
+    return await instance.post(`${this.#endpoint}`, data);
   }
 }
 

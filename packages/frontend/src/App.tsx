@@ -28,8 +28,10 @@ function Home() {
   useEffect(() => {
     async function getRandomPassage() {
       const response = await passageApi.getRandom();
-      const newPassage = response.data;
-      navigate(`/passage/${newPassage.id}`);
+      if (response) {
+        const newPassage = response.data;
+        navigate(`/passage/${newPassage.id}`);
+      }
     }
     getRandomPassage();
   }, [navigate]);
