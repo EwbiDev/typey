@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  NotFoundException,
 } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { PassagesService } from './passages.service';
@@ -55,8 +56,14 @@ export class PassagesController {
 
   @Get(':id')
   @ApiOkResponse({ type: PassageEntity })
-  findOne(@Param('id') id: string) {
-    return this.passagesService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const passage = await this.passagesService.findOne(+id);
+
+    if (passage) {
+      return passage;
+    }
+
+    throw new NotFoundException();
   }
 
   @Patch(':id')

@@ -18,7 +18,7 @@ export class PassagesService {
   }
 
   findOne(id: number) {
-    return this.prisma.passage.findUniqueOrThrow({
+    return this.prisma.passage.findUnique({
       where: { id },
     });
   }
