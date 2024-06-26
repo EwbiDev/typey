@@ -3,6 +3,7 @@ import PageHeader from "./components/PageHeader";
 import PassageContainer from "./components/PassageContainer";
 import { useNavigate, Routes, Route } from "react-router-dom";
 import { passageApi } from "./utils/api";
+import PassageCreate from "./components/PassageSubmit";
 
 export default function App() {
   return (
@@ -11,10 +12,8 @@ export default function App() {
         <div className="container mx-8 flex h-full w-full flex-col">
           <PageHeader />
           <Routes>
-            <Route
-              path="/passage/:passageId"
-              element={<PassageContainer />}
-            ></Route>
+            <Route path="/passage/new" element={<PassageCreate />} />
+            <Route path="/passage/:passageId" element={<PassageContainer />} />
             <Route path="/*" element={<Home />} />
           </Routes>
         </div>
