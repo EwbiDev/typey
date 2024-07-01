@@ -129,66 +129,18 @@ function setupPassageStats() {
 }
 
 function PassageNotFound() {
-  const [showInput, setShowInput] = useState(false);
-  const [passageInput, setPassageInput] = useState("");
-  const [buttonText, setButtonText] = useState("Submit");
-  const [submitted, setSubmitted] = useState(false);
-  const [newPassageId, setNewPassageId] = useState<number>();
-
   const navigate = useNavigate();
-
-  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setPassageInput(event.target.value);
-  }
-
-  async function handleButton() {
-    if (submitted) {
-      navigate(`/passage/${newPassageId}`);
-    }
-
-    if (passageInput.length < 6) {
-      setButtonText("Error!");
-      return;
-    }
-
-    const newPassage = await passageApi.post(passageInput);
-    if (newPassage.statusText === "Created") {
-      setButtonText("Created!");
-      setSubmitted(true);
-      setNewPassageId(newPassage.data.id);
-    }
-  }
 
   return (
     <div className="relative flex min-h-24 items-center justify-center gap-8">
-      {!showInput && (
-        <>
-          <div>Passage Not Found!</div>
-          <Button
-            onClick={() => {
-              setShowInput(true);
-            }}
-            text="Add a new passage?"
-            type="primaryEmpty"
-          />
-        </>
-      )}
-      {showInput && (
-        <div className="flex gap-8">
-          <input
-            name="passage-input"
-            id="passage-input"
-            value={passageInput}
-            onChange={handleInputChange}
-            className="rounded-sm bg-typey-background p-4 outline outline-typey-secondary"
-          />
-          <Button
-            onClick={handleButton}
-            text={buttonText}
-            type="secondaryFull"
-          />
-        </div>
-      )}
+      <div>Passage Not Found!</div>
+      <Button
+        onClick={() => {
+          navigate("/passage/new");
+        }}
+        text="Add a new passage?"
+        type="primaryEmpty"
+      />
     </div>
   );
 }
