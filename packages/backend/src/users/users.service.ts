@@ -41,10 +41,12 @@ export class UsersService {
     });
   }
 
-  findPasswordByEmail(email: string): Promise<Pick<User, 'passwordHash'>> {
+  findPasswordByEmail(
+    email: string,
+  ): Promise<Pick<User, 'id' | 'passwordHash' | 'username'>> {
     return this.prisma.user.findUnique({
       where: { email },
-      select: { passwordHash: true },
+      select: { id: true, passwordHash: true, username: true },
     });
   }
 }
