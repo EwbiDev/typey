@@ -24,7 +24,7 @@ export default function RegistrationForm() {
       <h2>Register</h2>
       <Input
         inputType="text"
-        label="Username"
+        label="username"
         placeholder="Typey McTypeFace"
         register={register}
         minLength={1}
@@ -33,14 +33,14 @@ export default function RegistrationForm() {
       />
       <Input
         inputType="email"
-        label="Email"
+        label="email"
         placeholder="typey@mctype.face"
         register={register}
         required
       />
       <Input
         inputType="password"
-        label="Password"
+        label="password"
         placeholder=""
         register={register}
         minLength={8}

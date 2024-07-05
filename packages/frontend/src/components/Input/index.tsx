@@ -2,6 +2,10 @@ import { FieldValues } from "react-hook-form";
 
 import { Common } from "../../types/types";
 
+function capitalizeFirstLetter(string: string): string {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export default function Input<T extends FieldValues>({
   inputType,
   label,
@@ -11,9 +15,11 @@ export default function Input<T extends FieldValues>({
   minLength,
   maxLength,
 }: Common.Prop.InputField<T>) {
+  const capitalizedLabel = capitalizeFirstLetter(label);
+
   return (
     <label>
-      {label}:
+      {capitalizedLabel}:
       <input
         type={inputType}
         {...register(label, { required, minLength, maxLength })}
