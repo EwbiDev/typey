@@ -99,6 +99,14 @@ declare namespace Passage {
   }
 }
 
+declare namespace User {
+  type RegistrationFormData = {
+    username: string;
+    email: string;
+    password: string;
+  };
+}
+
 declare namespace Common {
   namespace Prop {
     type Button = {
