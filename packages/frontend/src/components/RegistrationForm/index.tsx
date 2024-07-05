@@ -1,22 +1,19 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import Input from "../Input";
-
-interface RegistrationFormData {
-  Username: string;
-  Email: string;
-  Password: string;
-}
+import { User } from "../../types/types";
+import { userApi } from "../../utils/api";
 
 export default function RegistrationForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegistrationFormData>();
+  } = useForm<User.RegistrationFormData>();
 
-  const onSubmit: SubmitHandler<RegistrationFormData> = (data) => {
-    return console.log(data, errors);
+  const onSubmit: SubmitHandler<User.RegistrationFormData> = async (data) => {
+    const response = await userApi.register(data);
+    console.log(response);
   };
 
   return (
