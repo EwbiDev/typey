@@ -45,6 +45,9 @@ export default function RegistrationForm() {
         required
       />
       <input type="submit" />
+      {errors.email && <div>Email error</div>}
+      {errors.username && <div>Username error</div>}
+      {errors.password && <div>Password error</div>}
     </form>
   );
 }
