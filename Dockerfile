@@ -18,4 +18,5 @@ COPY --from=build /prod/frontend/dist /usr/share/nginx/html
 FROM base AS backend
 COPY --from=build /prod/backend/ /prod/backend
 WORKDIR /prod/backend
+EXPOSE 80
 CMD [ "pnpm", "start:prod" ]
