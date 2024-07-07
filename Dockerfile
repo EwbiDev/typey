@@ -14,9 +14,9 @@ RUN pnpm deploy --filter=backend --prod /prod/backend
 FROM nginx:1.25.4-alpine AS frontend
 COPY --from=build /prod/frontend/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /prod/frontend/dist /usr/share/nginx/html
+EXPOSE 80
 
 FROM base AS backend
 COPY --from=build /prod/backend/ /prod/backend
 WORKDIR /prod/backend
-EXPOSE 80
 CMD [ "pnpm", "start:prod" ]
