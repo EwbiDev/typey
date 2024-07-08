@@ -21,7 +21,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Push image to GHCR
+      - name: Build and Push Backend image to GHCR
         run: |
-          docker build -t ghcr.io/ewbidev/typey:latest .
-          docker push ghcr.io/ewbidev/typey:latest
+          docker build --target backend -t ghcr.io/ewbidev/typey-backend:latest .
+          docker push ghcr.io/ewbidev/typey-backend:latest
+
+      - name: Build and Push Frontend image to GHCR
+        run: |
+          docker build --target frontend -t ghcr.io/ewbidev/typey-frontend:latest .
+          docker push ghcr.io/ewbidev/typey-frontend:latestÏ
