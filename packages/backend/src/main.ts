@@ -6,6 +6,9 @@ import { AppModule } from './app.module';
 import 'dotenv/config';
 
 const { SERVER_PORT } = process.env;
+if (!SERVER_PORT) {
+  throw new Error('SERVER_PORT env not defined');
+}
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
