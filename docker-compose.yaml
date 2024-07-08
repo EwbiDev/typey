@@ -7,6 +7,8 @@ services:
       - 9876:80
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - BACKEND_URL=http://backend:8766
     depends_on:
       - backend
   backend:
@@ -18,7 +20,6 @@ services:
       - DATABASE_USER=${DB_USER}
       - DATABASE_PASSWORD=${DB_PASSWORD}
       - DATABASE_HOST=db
-      - SERVER_HOST=backend
       - SERVER_PORT=8766
       - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:${DB_PORT}/${DB_NAME}
     ports:
