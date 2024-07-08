@@ -29,4 +29,4 @@ jobs:
       - name: Build and Push Frontend image to GHCR
         run: |
           docker build --target frontend -t ghcr.io/ewbidev/typey-frontend:latest .
-          docker push ghcr.io/ewbidev/typey-frontend:latestÏ
+          docker push ghcr.io/ewbidev/typey-frontend:latest
