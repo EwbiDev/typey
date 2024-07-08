@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { User } from "../../types/types";
+
 const instance = axios.create({
   baseURL: "/api/v1/",
 });
@@ -40,5 +42,20 @@ class PassageApi {
   }
 }
 
+class UserApi {
+  private endpoint = "users";
+
+  async register(formData: User.RegistrationFormData) {
+    try {
+      return await instance.post(`${this.endpoint}`, formData);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        return err.response;
+      }
+    }
+  }
+}
+
 const passageApi = new PassageApi();
-export { passageApi };
+const userApi = new UserApi();
+export { passageApi, userApi };

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Passage, Prisma } from '@prisma/client';
+import { Passage } from '@prisma/client';
 
 export class PassageEntity implements Passage {
   @ApiProperty()

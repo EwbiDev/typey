@@ -1,3 +1,5 @@
+import { FieldValues, UseFormRegister } from "react-hook-form";
+
 declare namespace Passage {
   type AccuracyStats = {
     hit: number;
@@ -97,12 +99,30 @@ declare namespace Passage {
   }
 }
 
+declare namespace User {
+  type RegistrationFormData = {
+    username: string;
+    email: string;
+    password: string;
+  };
+}
+
 declare namespace Common {
   namespace Prop {
     type Button = {
       onClick: () => unknown;
       text: string;
       type: "primaryEmpty" | "secondaryFull";
+    };
+
+    type InputField<T extends FieldValues = FieldValues> = {
+      inputType: "text" | "email" | "password";
+      label: Extract<keyof T>;
+      placeholder: string;
+      register: UseFormRegister<T>;
+      required?: boolean;
+      minLength?: number;
+      maxLength?: number;
     };
   }
 }
