@@ -1,3 +1,4 @@
+import { Passage } from "../../types/types";
 import Button from "../Button";
 
 export default function PassageStatDisplay({

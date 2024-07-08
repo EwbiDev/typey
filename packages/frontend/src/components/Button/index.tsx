@@ -1,3 +1,5 @@
+import { Common } from "../../types/types";
+
 export default function Button({ onClick, text, type }: Common.Prop.Button) {
   const typeVariants = {
     secondaryFull: {

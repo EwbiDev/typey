@@ -1,3 +1,5 @@
+import { Passage } from "../../types/types";
+
 export default function Caret({ loc }: Passage.Prop.Caret) {
   return (
     <>

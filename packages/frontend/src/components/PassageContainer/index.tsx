@@ -7,6 +7,7 @@ import PassageStatDisplay from "../PassageStatDisplay";
 import PassageControls from "../PassageControls";
 
 import { passageApi } from "../../utils/api";
+import { Passage } from "../../types/types";
 
 export default function PassageContainer() {
   const { passageId } = useParams();

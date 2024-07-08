@@ -1,5 +1,6 @@
 import { useRef, useState, MutableRefObject } from "react";
 import PassageDisplay from "../PassageDisplay";
+import { Passage } from "../../types/types";
 
 export default function PassageInput({
   passage,

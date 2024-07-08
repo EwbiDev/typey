@@ -1,3 +1,5 @@
+import { Passage } from "../../../types/types";
+
 // Icon names found at https://fonts.google.com/icons
 export default function ControlIcon({
   iconName,

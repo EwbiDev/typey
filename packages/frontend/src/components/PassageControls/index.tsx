@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import ControlIcon from "./ControlIcon";
+import { Passage } from "../../types/types";
 
 export default function PassageControls({
   prevPassage,

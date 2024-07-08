@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from "react";
 import Caret from "../Caret";
 import Word from "./Word";
+import { Passage } from "../../types/types";
 
 export default function PassageDisplay({
   hasFocus,

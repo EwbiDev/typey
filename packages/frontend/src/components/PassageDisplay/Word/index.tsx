@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Passage } from "../../../types/types";
 
 export default function Word({
   word,
