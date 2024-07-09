@@ -6,6 +6,10 @@ A monorepo typing app with user submitted passages. It allows users to practice 
 
 ![Typey Demo](typey-demo.gif)
 
+## Live Demo
+
+[Come check out the live demo!](http://typey.ewbi.co.uk)
+
 ## Requirements
 
 You will need the following installed on your system:
