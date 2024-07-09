@@ -28,7 +28,8 @@ export default function PassageContainer() {
     async function newPassageText() {
       const data = await passageApi.getById(Number(passageId));
 
-      if (data && data.statusText === "OK") {
+      // data.statusText returns '' when using https so check on codes instead
+      if (data && data.status >= 200 && data.status < 400) {
         const newPassage = setupPassage(data.data.text);
         setPassage(newPassage);
         setPassageStats(setupPassageStats);
