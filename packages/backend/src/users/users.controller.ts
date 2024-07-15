@@ -26,7 +26,7 @@ export class UsersController {
     description: 'Successful operation.',
   })
   @ApiBadRequestResponse({ description: 'Bad request. Invalid input data.' })
-  @ApiConflictResponse({ description: 'Conflict. Email already exists.' })
+  @ApiConflictResponse({ description: 'Conflict. Username already in use.' })
   async create(@Body() createUserDto: CreateUserDto) {
     try {
       return await this.usersService.create(createUserDto);
@@ -35,7 +35,7 @@ export class UsersController {
         error instanceof PrismaClientKnownRequestError &&
         error.code === 'P2002'
       ) {
-        throw new ConflictException('Email already exists');
+        throw new ConflictException('Username already in use');
       }
     }
   }

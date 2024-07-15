@@ -15,6 +15,6 @@ export class AuthController {
     description: 'Returns a JWT on successful login attempt.',
   })
   async logIn(@Body() logInDto: LogInDto) {
-    return await this.authService.logIn(logInDto.email, logInDto.password);
+    return await this.authService.logIn(logInDto.username, logInDto.password);
   }
 }
