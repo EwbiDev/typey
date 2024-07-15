@@ -102,7 +102,6 @@ declare namespace Passage {
 declare namespace User {
   type RegistrationFormData = {
     username: string;
-    email: string;
     password: string;
   };
 }
@@ -116,7 +115,7 @@ declare namespace Common {
     };
 
     type InputField<T extends FieldValues = FieldValues> = {
-      inputType: "text" | "email" | "password";
+      inputType: "text" | "password";
       label: Extract<keyof T>;
       placeholder: string;
       register: UseFormRegister<T>;
