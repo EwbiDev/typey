@@ -50,7 +50,7 @@ export default function RegistrationForm() {
           <Input
             inputType="text"
             label="username"
-            placeholder="Typey McTypeFace"
+            placeholder=""
             register={register}
             minLength={1}
             maxLength={24}
