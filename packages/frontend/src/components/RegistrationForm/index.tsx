@@ -54,6 +54,7 @@ export default function RegistrationForm() {
             register={register}
             minLength={1}
             maxLength={24}
+            fieldError={errors.username}
             required
           />
           <Input
@@ -63,11 +64,10 @@ export default function RegistrationForm() {
             register={register}
             minLength={8}
             maxLength={128}
+            fieldError={errors.password}
             required
           />
           <input type="submit" />
-          {errors.username && <div>Username error</div>}
-          {errors.password && <div>Password error</div>}
         </form>
       )}
       {registrationSuccess && <SuccessMessage />}
