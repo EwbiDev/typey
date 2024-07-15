@@ -45,7 +45,10 @@ export default function RegistrationForm() {
   return (
     <>
       {!registrationSuccess && (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-4 rounded-md border p-4 max-w-96"
+        >
           <h2>Register</h2>
           <Input
             inputType="text"
@@ -67,7 +70,7 @@ export default function RegistrationForm() {
             fieldError={errors.password}
             required
           />
-          <input type="submit" />
+          <input type="submit" className="p-2" />
         </form>
       )}
       {registrationSuccess && <SuccessMessage />}

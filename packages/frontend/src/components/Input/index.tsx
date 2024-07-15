@@ -18,43 +18,37 @@ export default function Input<T extends FieldValues>({
 }: Common.Prop.InputField<T>) {
   const capitalizedLabel = capitalizeFirstLetter(label);
 
+  const errorClass = 'outline-typey-bad focus:outline-typey-bad'
+
   function populateErrorMessage() {
     switch (fieldError!.type) {
       case "minLength":
-        return `must be at least ${minLength} characters long`;
+        return `minimum ${minLength} characters`;
       case "maxLength":
-        return `must be no more than ${maxLength} characters long`;
+        return `maximum ${maxLength} characters`;
       case "required":
-        return `is required`;
+        return `required field`;
       default:
         return "unknown error";
     }
   }
 
   return (
-    <div className="relative">
-      <label>
-        {capitalizedLabel}:
-        <input
-          type={inputType}
-          {...register(label, { required, minLength, maxLength })}
-          placeholder={placeholder}
-        ></input>
-      </label>
-      {fieldError && (
-        <ErrorTooltip
-          label={capitalizedLabel}
-          message={populateErrorMessage()}
-        />
-      )}
-    </div>
+      <div className="relative">
+        <label className="flex flex-col">
+          {capitalizedLabel}:
+          <input
+            className={`rounded-sm bg-typey-background p-2 text-typey-primary outline outline-typey-secondary focus:outline-typey-primary ${fieldError && errorClass}`}
+            type={inputType}
+            {...register(label, { required, minLength, maxLength })}
+            placeholder={placeholder}
+          ></input>
+        </label>
+        {fieldError && <ErrorTooltip message={populateErrorMessage()} />}
+      </div>
   );
 }
 
-function ErrorTooltip({ label, message }: { label: string; message: string }) {
-  return (
-    <div>
-      {label} {message}
-    </div>
-  );
+function ErrorTooltip({ message }: { message: string }) {
+  return <div className="absolute right-0 top-0 text-typey-bad">{message}</div>;
 }
