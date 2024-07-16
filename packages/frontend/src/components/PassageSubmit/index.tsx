@@ -27,7 +27,9 @@ export default function PassageCreate() {
     }
 
     const newPassage = await passageApi.post(userInput);
-    if (newPassage.statusText === "Created") {
+
+    // newPassage.statusText returns '' when using https so check on codes instead
+    if (newPassage.status >= 201 && newPassage.status < 400) {
       setButtonText("Created!");
       setSubmitted(true);
       setCreatedPassageText(newPassage.data.text);
