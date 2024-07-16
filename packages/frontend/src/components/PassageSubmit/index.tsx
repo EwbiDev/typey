@@ -30,7 +30,6 @@ export default function PassageCreate() {
     if (newPassage.statusText === "Created") {
       setButtonText("Created!");
       setSubmitted(true);
-      console.log(newPassage.data);
       setCreatedPassageText(newPassage.data.text);
       setNewPassageId(newPassage.data.id);
     }
