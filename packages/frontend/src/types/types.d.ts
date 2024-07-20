@@ -14,6 +14,10 @@ declare namespace Passage {
 
   type Letter = { char: string; index: number; perfect: boolean };
 
+  type NewPassageFormData = {
+    input: string;
+  };
+
   type WordRects = {
     x: number;
     y: number;
@@ -123,6 +127,10 @@ declare namespace Common {
       minLength?: number;
       maxLength?: number;
       fieldError?: FieldError;
+    };
+
+    type SubmitInput = {
+      type: "primaryEmpty" | "secondaryFull"
     };
   }
 }
