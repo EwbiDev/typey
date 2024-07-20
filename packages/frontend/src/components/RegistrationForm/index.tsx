@@ -6,6 +6,8 @@ import Input from "../Input";
 import { User } from "../../types/types";
 import { userApi } from "../../utils/api";
 import { FailureMessage } from "../FailureMessage";
+import Container from "../Container";
+import SubmitInput from "../SubmitInput";
 
 interface ErrorDetails {
   message: string;
@@ -44,11 +46,11 @@ export default function RegistrationForm() {
   };
 
   return (
-    <>
+    <Container>
       {!registrationSuccess && (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex max-w-96 flex-col gap-4 rounded-md border p-4"
+          className="flex w-1/2 max-w-96 flex-col gap-4 rounded-md p-4"
         >
           <h2>Register</h2>
           <Input
@@ -71,14 +73,14 @@ export default function RegistrationForm() {
             fieldError={errors.password}
             required
           />
-          <input type="submit" className="p-2" />
+          <SubmitInput type="secondaryFull" errors={errors} />
         </form>
       )}
       {registrationSuccess && <SuccessMessage />}
       {!registrationSuccess && errorDetails && (
         <FailureMessage message={errorDetails.message} />
       )}
-    </>
+    </Container>
   );
 }
 
