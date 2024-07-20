@@ -7,6 +7,7 @@ import { Passage } from "../../types/types";
 import Input from "../Input";
 import SubmitInput from "../SubmitInput";
 import { FailureMessage } from "../FailureMessage";
+import Container from "../Container";
 
 interface ErrorDetails {
   message: string;
@@ -52,7 +53,7 @@ export default function PassageCreate() {
   };
 
   return (
-    <div className="flex grow items-center justify-center">
+    <Container>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col justify-center gap-8"
@@ -83,6 +84,6 @@ export default function PassageCreate() {
       {!submitSuccess && errorDetails && (
         <FailureMessage message={errorDetails.message} />
       )}
-    </div>
+    </Container>
   );
 }
