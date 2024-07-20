@@ -48,7 +48,7 @@ export default function RegistrationForm() {
       {!registrationSuccess && (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-4 rounded-md border p-4 max-w-96"
+          className="flex max-w-96 flex-col gap-4 rounded-md border p-4"
         >
           <h2>Register</h2>
           <Input
