@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Input from "../Input";
 import { User } from "../../types/types";
 import { userApi } from "../../utils/api";
+import { FailureMessage } from "../FailureMessage";
 
 interface ErrorDetails {
   message: string;
@@ -78,15 +79,6 @@ export default function RegistrationForm() {
         <FailureMessage message={errorDetails.message} />
       )}
     </>
-  );
-}
-
-function FailureMessage({ message }: { message: string }) {
-  return (
-    <div>
-      <h2>Error:</h2>
-      <p>{message}</p>
-    </div>
   );
 }
 
