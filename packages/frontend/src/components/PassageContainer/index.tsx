@@ -8,6 +8,7 @@ import PassageControls from "../PassageControls";
 
 import { passageApi } from "../../utils/api";
 import { Passage } from "../../types/types";
+import Container from "../Container";
 
 export default function PassageContainer() {
   const { passageId } = useParams();
@@ -64,7 +65,7 @@ export default function PassageContainer() {
   }
 
   return (
-    <div className="flex grow flex-col justify-center gap-8">
+    <Container>
       {!passageFound && <PassageNotFound />}
       {!passageComplete && passageFound && (
         <PassageInput
@@ -90,7 +91,7 @@ export default function PassageContainer() {
         nextPassage={nextPassage}
         replayPassage={replayPassage}
       />
-    </div>
+    </Container>
   );
 }
 

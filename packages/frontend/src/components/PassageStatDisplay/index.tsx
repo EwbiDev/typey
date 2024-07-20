@@ -13,12 +13,16 @@ export default function PassageStatDisplay({
   const accuracyNum = (accuracy.hit / (accuracy.hit + accuracy.miss)) * 100;
 
   // assume 5 chars per word, including spaces
-  const wordCount = passage.reduce((totalChars, word) => totalChars + word.userInput.length + 1, -1) / 5;
+  const wordCount =
+    passage.reduce(
+      (totalChars, word) => totalChars + word.userInput.length + 1,
+      -1,
+    ) / 5;
 
   const wpm = wordCount * (60 / passageTime);
 
   return (
-    <div className="flex items-center justify-around">
+    <div className="flex w-1/2 items-center justify-around">
       <div className="text-2xl text-typey-primary">Completed!</div>
       <div className="text-typey-primary">
         <div>
