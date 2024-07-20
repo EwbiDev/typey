@@ -34,11 +34,16 @@ class PassageApi {
   }
 
   async post(textInput: string) {
-    const data = {
-      text: textInput,
-    };
-
-    return await instance.post(`${this.#endpoint}`, data);
+    try {
+      const data = {
+        text: textInput,
+      };
+      return await instance.post(`${this.#endpoint}`, data);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        return err.response;
+      }
+    }
   }
 }
 
