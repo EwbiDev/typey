@@ -52,39 +52,37 @@ export default function PassageCreate() {
   };
 
   return (
-    <div className="container flex grow items-center justify-center">
-      <div className="flex min-h-40 flex-col gap-8">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col justify-center gap-8"
-        >
-          <h2 className=" text-2xl">Create a new passage</h2>
-          <Input
-            inputType="text"
-            label="input"
-            placeholder=""
-            register={register}
-            minLength={8}
-            fieldError={errors.input}
-            required
-          />
-          <SubmitInput type={"secondaryFull"} errors={errors} />
-        </form>
-        {newPassageId && (
-          <div className="flex flex-col justify-between gap-4">
-            <h2 className="text-3xl text-typey-primary underline hover:text-typey-default">
-              <Link to={`/passage/${newPassageId}`}>
-                Passage{" "}
-                <span className=" text-typey-secondary">#{newPassageId}:</span>
-              </Link>
-            </h2>
-            <p>{createdPassageText}</p>
-          </div>
-        )}
-        {!submitSuccess && errorDetails && (
-          <FailureMessage message={errorDetails.message} />
-        )}
-      </div>
+    <div className="flex grow items-center justify-center">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col justify-center gap-8"
+      >
+        <h2 className=" text-2xl">Create a new passage</h2>
+        <Input
+          inputType="text"
+          label="input"
+          placeholder=""
+          register={register}
+          minLength={8}
+          fieldError={errors.input}
+          required
+        />
+        <SubmitInput type={"secondaryFull"} errors={errors} />
+      </form>
+      {newPassageId && (
+        <div className="flex flex-col justify-between gap-4">
+          <h2 className="text-3xl text-typey-primary underline hover:text-typey-default">
+            <Link to={`/passage/${newPassageId}`}>
+              Passage{" "}
+              <span className=" text-typey-secondary">#{newPassageId}:</span>
+            </Link>
+          </h2>
+          <p>{createdPassageText}</p>
+        </div>
+      )}
+      {!submitSuccess && errorDetails && (
+        <FailureMessage message={errorDetails.message} />
+      )}
     </div>
   );
 }
