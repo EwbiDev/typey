@@ -80,6 +80,12 @@ export default function RegistrationForm() {
       {!registrationSuccess && errorDetails && (
         <FailureMessage message={errorDetails.message} />
       )}
+      <div>
+        Have an account? Login{" "}
+        <Link to="/login" className=" text-typey-primary underline">
+          here
+        </Link>
+      </div>
     </Container>
   );
 }
