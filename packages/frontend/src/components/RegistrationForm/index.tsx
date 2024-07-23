@@ -87,8 +87,13 @@ export default function RegistrationForm() {
 function SuccessMessage() {
   return (
     <div>
-      <h2>Success!</h2>
-      <Link to="/login">Login here</Link>
+      <h2>Registration success!</h2>
+      <p>
+        You may now login{" "}
+        <Link to="/login" className=" text-typey-primary underline">
+          here
+        </Link>
+      </p>
     </div>
   );
 }
