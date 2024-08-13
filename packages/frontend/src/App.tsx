@@ -5,6 +5,7 @@ import { useNavigate, Routes, Route } from "react-router-dom";
 import { passageApi } from "./utils/api";
 import PassageCreate from "./components/PassageSubmit";
 import RegistrationForm from "./components/RegistrationForm";
+import LoginForm from "./components/LoginForm";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
             <Route path="/passage/new" element={<PassageCreate />} />
             <Route path="/passage/:passageId" element={<PassageContainer />} />
             <Route path="/register" element={<RegistrationForm />} />
+            <Route path="/login" element={<LoginForm />} />
             <Route path="/*" element={<Home />} />
           </Routes>
         </div>
