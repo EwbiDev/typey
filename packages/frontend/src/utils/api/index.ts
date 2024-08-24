@@ -34,11 +34,16 @@ class PassageApi {
   }
 
   async post(textInput: string) {
-    const data = {
-      text: textInput,
-    };
-
-    return await instance.post(`${this.#endpoint}`, data);
+    try {
+      const data = {
+        text: textInput,
+      };
+      return await instance.post(`${this.#endpoint}`, data);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        return err.response;
+      }
+    }
   }
 }
 
@@ -56,6 +61,21 @@ class UserApi {
   }
 }
 
+class AuthApi {
+  private endpoint = "auth";
+
+  async login(formData: User.LoginFormData) {
+    try {
+      return await instance.post(`${this.endpoint}/login`, formData);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        return err.response
+      }
+    }
+  }
+}
+
 const passageApi = new PassageApi();
 const userApi = new UserApi();
-export { passageApi, userApi };
+const authApi = new AuthApi();
+export { passageApi, userApi, authApi };

@@ -12,10 +12,15 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async logIn(email: string, password: string) {
-    const user = await this.usersService.findPasswordByEmail(email);
+  async logIn(username: string, password: string) {
+    const user = await this.usersService.findPasswordByUsername(username);
 
-    if (!bcrypt.compare(password, user ? user.passwordHash : '') || !user) {
+    const passwordMatch = await bcrypt.compare(
+      password,
+      user ? user.passwordHash : '',
+    );
+
+    if (!passwordMatch) {
       throw new UnauthorizedException();
     }
 

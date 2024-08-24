@@ -1,4 +1,4 @@
-import { FieldValues, UseFormRegister } from "react-hook-form";
+import { FieldError, FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
 declare namespace Passage {
   type AccuracyStats = {
@@ -13,6 +13,10 @@ declare namespace Passage {
   };
 
   type Letter = { char: string; index: number; perfect: boolean };
+
+  type NewPassageFormData = {
+    input: string;
+  };
 
   type WordRects = {
     x: number;
@@ -100,9 +104,13 @@ declare namespace Passage {
 }
 
 declare namespace User {
+  type LoginFormData = {
+    username: string;
+    password: string;
+  }
+
   type RegistrationFormData = {
     username: string;
-    email: string;
     password: string;
   };
 }
@@ -116,13 +124,19 @@ declare namespace Common {
     };
 
     type InputField<T extends FieldValues = FieldValues> = {
-      inputType: "text" | "email" | "password";
+      inputType: "text" | "password";
       label: Extract<keyof T>;
       placeholder: string;
       register: UseFormRegister<T>;
       required?: boolean;
       minLength?: number;
       maxLength?: number;
+      fieldError?: FieldError;
+    };
+
+    type SubmitInput = {
+      type: "primaryEmpty" | "secondaryFull"
+      errors: FieldErrors
     };
   }
 }
