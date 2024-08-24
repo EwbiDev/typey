@@ -9,6 +9,7 @@ export default {
       colors: {
         "typey-background": "#303025",
         "typey-primary": "#A18CCF",
+        "typey-primary-light": "#C7BAE2",
         "typey-secondary": "#75AAA1",
         "typey-default": "#EAEAEA",
         "typey-ok": "#88EE57",
