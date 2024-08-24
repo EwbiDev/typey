@@ -18,7 +18,7 @@ export default function Input<T extends FieldValues>({
 }: Common.Prop.InputField<T>) {
   const capitalizedLabel = capitalizeFirstLetter(label);
 
-  const errorClass = 'outline-typey-bad focus:outline-typey-bad'
+  const errorClass = "outline-typey-bad focus:outline-typey-bad";
 
   function populateErrorMessage() {
     switch (fieldError!.type) {
@@ -34,18 +34,18 @@ export default function Input<T extends FieldValues>({
   }
 
   return (
-      <div className="relative">
-        <label className="flex flex-col">
-          {capitalizedLabel}:
-          <input
-            className={`rounded-sm bg-typey-background p-2 text-typey-primary outline outline-typey-secondary focus:outline-typey-primary ${fieldError && errorClass}`}
-            type={inputType}
-            {...register(label, { required, minLength, maxLength })}
-            placeholder={placeholder}
-          ></input>
-        </label>
-        {fieldError && <ErrorTooltip message={populateErrorMessage()} />}
-      </div>
+    <div className="relative">
+      <label className="text-typey-primary">
+        {capitalizedLabel}:
+        <input
+          className={`block w-full rounded-md border-0 p-2 text-typey-primary outline outline-1 outline-typey-secondary ring-1 focus:ring-2 focus:ring-inset focus:ring-typey-primary-light ${fieldError && errorClass}`}
+          type={inputType}
+          {...register(label, { required, minLength, maxLength })}
+          placeholder={placeholder}
+        ></input>
+      </label>
+      {fieldError && <ErrorTooltip message={populateErrorMessage()} />}
+    </div>
   );
 }
 

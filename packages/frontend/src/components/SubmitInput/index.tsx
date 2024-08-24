@@ -4,9 +4,9 @@ export default function SubmitInput({ type, errors }: Common.Prop.SubmitInput) {
   const typeVariants = {
     secondaryFull: {
       bg: "bg-typey-primary",
-      hoverBg: "hover:bg-typey-default",
-      textClr: "text-typey-background",
-      hoverTextClr: "hover:text-typey-background",
+      hoverBg: "hover:bg-typey-primary-light",
+      textClr: "text-typey-default",
+      hoverTextClr: "hover:text-white",
       border: "",
       borderHover: "",
     },
@@ -34,7 +34,7 @@ export default function SubmitInput({ type, errors }: Common.Prop.SubmitInput) {
     ? typeVariants.error
     : typeVariants[type];
 
-  const classNameBase = `rounded-lg p-2 transition delay-75 duration-200 ease-in-out hover:scale-105`;
+  const classNameBase = `w-full rounded-lg p-2 cursor-pointer`;
   const className = `${classNameBase} ${bg} ${textClr} ${border} ${hoverBg} ${hoverTextClr} ${borderHover}`;
 
   const text = showError ? "Error!" : "Submit";

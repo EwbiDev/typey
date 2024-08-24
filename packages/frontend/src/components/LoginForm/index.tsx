@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import Container from "../Container";
 import Input from "../Input";
 import SubmitInput from "../SubmitInput";
 
@@ -29,39 +28,56 @@ export default function LoginForm() {
       setErrorMessage("Username and password does not match");
       return;
     }
-    
+
     setErrorMessage("Unknown error, please try again later");
   };
 
   return (
-    <Container>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex w-1/2 max-w-96 flex-col gap-4 rounded-md p-4"
-      >
-        <h2>Login</h2>
-        <Input
-          inputType="text"
-          label="username"
-          placeholder=""
-          register={register}
-          maxLength={24}
-          fieldError={errors.username}
-          required
-        />
-        <Input
-          inputType="password"
-          label="password"
-          placeholder=""
-          register={register}
-          maxLength={128}
-          fieldError={errors.password}
-          required
-        />
-        {errorMessage && <ErrorMessage message={errorMessage} />}
-        <SubmitInput type="secondaryFull" errors={errors} />
-      </form>
-    </Container>
+    <>
+      <div className="flex flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-typey-primary">
+            Sign in
+          </h2>
+        </div>
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+          <div className="bg-typey-default px-6 py-12 shadow sm:rounded-lg sm:px-12">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              <Input
+                inputType="text"
+                label="username"
+                placeholder=""
+                register={register}
+                maxLength={24}
+                fieldError={errors.username}
+                required
+              />
+              <Input
+                inputType="password"
+                label="password"
+                placeholder=""
+                register={register}
+                maxLength={128}
+                fieldError={errors.password}
+                required
+              />
+              <SubmitInput type="secondaryFull" errors={errors} />
+              {errorMessage && <ErrorMessage message={errorMessage} />}
+            </form>
+          </div>
+
+          <p className="mt-10 text-center text-sm text-typey-primary">
+            No account?{" "}
+            <a
+              href="/register"
+              className="font-semibold leading-6 text-typey-secondary hover:text-typey-default"
+            >
+              Register here!
+            </a>
+          </p>
+        </div>
+      </div>
+    </>
   );
 }
 
