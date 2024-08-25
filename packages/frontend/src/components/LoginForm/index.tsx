@@ -59,7 +59,7 @@ export default function LoginForm() {
                 fieldError={errors.password}
                 required
               />
-              <SubmitInput type="secondaryFull" errors={errors} text="Log in" />
+              <SubmitInput type="secondaryFull" text="Log in" />
             </form>
           </div>
 
