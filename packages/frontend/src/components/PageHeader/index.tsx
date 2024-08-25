@@ -8,6 +8,7 @@ import {
   MenuItems,
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { classNames } from "../../utils/classNames";
 
 const user = {
   name: "Tom Cook",
@@ -25,10 +26,6 @@ const userNavigation = [
   { name: "Settings", href: "#" },
   { name: "Sign out", href: "#" },
 ];
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export default function PageHeader() {
   return (
