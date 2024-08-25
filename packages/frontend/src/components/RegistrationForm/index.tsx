@@ -8,6 +8,9 @@ import { userApi } from "../../utils/api";
 import { FailureMessage } from "../FailureMessage";
 import Container from "../Container";
 import SubmitInput from "../SubmitInput";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../features/auth/authActions";
+import { RootState } from "../../app/store";
 
 interface ErrorDetails {
   message: string;
@@ -16,38 +19,23 @@ interface ErrorDetails {
 }
 
 export default function RegistrationForm() {
+  const dispatch = useDispatch();
+  const { loading, success, user, error } = useSelector(
+    (state: RootState) => state.auth,
+  );
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<User.RegistrationFormData>();
-  const [registrationSuccess, setRegistrationSuccess] = useState<boolean>();
-  const [errorDetails, setErrorDetails] = useState<ErrorDetails>();
 
   const onSubmit: SubmitHandler<User.RegistrationFormData> = async (data) => {
-    const response = await userApi.register(data);
-
-    if (response && response?.status >= 201 && response?.status < 400) {
-      setRegistrationSuccess(true);
-      return;
-    }
-
-    if (response?.data?.error) {
-      setErrorDetails(response.data);
-      setRegistrationSuccess(false);
-      return;
-    }
-
-    setErrorDetails({
-      message: "Unable to connect to server, please try again later",
-      error: "No connection",
-    });
-    setRegistrationSuccess(false);
+    dispatch(registerUser(data));
   };
 
   return (
     <Container>
-      {!registrationSuccess && (
+      {!success && (
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex w-1/2 max-w-96 flex-col gap-4 rounded-md p-4"
@@ -76,11 +64,9 @@ export default function RegistrationForm() {
           <SubmitInput type="secondaryFull" errors={errors} />
         </form>
       )}
-      {registrationSuccess && <SuccessMessage />}
-      {!registrationSuccess && errorDetails && (
-        <FailureMessage message={errorDetails.message} />
-      )}
-      {!registrationSuccess && <LoginLink />}
+      {success && <SuccessMessage />}
+      {!success && error && <FailureMessage message={error.message} />}
+      {!success && <LoginLink />}
     </Container>
   );
 }
