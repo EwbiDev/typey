@@ -1,4 +1,8 @@
-import { FieldError, FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+import {
+  FieldError,
+  FieldValues,
+  UseFormRegister,
+} from "react-hook-form";
 
 declare namespace Passage {
   type AccuracyStats = {
@@ -136,7 +140,6 @@ declare namespace Common {
 
     type SubmitInput = {
       type: "primaryEmpty" | "secondaryFull";
-      errors: FieldErrors;
       text: string;
     };
   }
