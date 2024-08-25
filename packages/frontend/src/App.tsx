@@ -1,13 +1,15 @@
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate, Routes, Route } from "react-router-dom";
+
+import LoginForm from "./components/LoginForm";
 import PageHeader from "./components/PageHeader";
 import PassageContainer from "./components/PassageContainer";
-import { useNavigate, Routes, Route } from "react-router-dom";
-import { passageApi } from "./utils/api";
 import PassageCreate from "./components/PassageSubmit";
 import RegistrationForm from "./components/RegistrationForm";
-import LoginForm from "./components/LoginForm";
-import { useDispatch } from "react-redux";
+
 import { getCurrentUser } from "./features/auth/authActions";
+import { passageApi } from "./utils/api";
 
 export default function App() {
   const dispatch = useDispatch();
