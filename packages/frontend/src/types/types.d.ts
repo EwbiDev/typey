@@ -109,6 +109,7 @@ declare namespace Passage {
 
 declare namespace User {
   type CurrentUser = {
+    userId: number;
     username: string;
   };
 

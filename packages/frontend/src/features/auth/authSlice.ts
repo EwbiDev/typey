@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { loginUser, registerUser } from "./authActions";
 import { User } from "../../types/types";
 
-const accessToken = localStorage.getItem("accessToken") || null
+const accessToken = localStorage.getItem("accessToken") || null;
 
 interface LoginState {
   loading: boolean;
@@ -39,8 +39,11 @@ const authSlice = createSlice({
         state.loading = true;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
+        const { userId, username, accessToken } = action.payload;
+
         state.loading = false;
-        state.user = action.payload;
+        state.user = { userId, username };
+        state.accessToken = accessToken;
         state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
