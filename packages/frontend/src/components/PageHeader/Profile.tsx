@@ -21,10 +21,10 @@ export function ProfileDesktop({
           <MenuButton className="relative flex rounded-full bg-typey-primary text-sm focus:outline-none focus:ring-2 focus:ring-typey-secondary focus:ring-offset-2">
             <span className="absolute -inset-1.5" />
             <span className="sr-only">Open user menu</span>
-            {user.image && (
+            {user?.image && (
               <img alt="" src={user.image} className="h-10 w-10 rounded-full" />
             )}
-            {!user.image && (
+            {!user?.image && (
               <DefaultUserIcon className="h-10 w-10 bg-typey-secondary" />
             )}
           </MenuButton>

@@ -34,18 +34,16 @@ export default function PageHeader() {
             <NavBarDesktop navigationLinks={navigationLinks} />
           </div>
           <div className="flex items-center">
-            {auth.user && (
-              <ProfileDesktop
-                navigationLinks={userNavigationLinks}
-                user={auth.user}
-              />
-            )}
-            {!auth.user && (
+            {auth.user === null && (
               <>
                 <NavItem name="Log in" href="/login" current={false} />
                 <NavItem name="Register" href="/register" current={false} />
               </>
             )}
+            <ProfileDesktop
+              navigationLinks={userNavigationLinks}
+              user={auth.user}
+            />
             <HamburgerMenu />
           </div>
         </div>

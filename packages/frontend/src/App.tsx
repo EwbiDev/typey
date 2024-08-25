@@ -6,8 +6,15 @@ import { passageApi } from "./utils/api";
 import PassageCreate from "./components/PassageSubmit";
 import RegistrationForm from "./components/RegistrationForm";
 import LoginForm from "./components/LoginForm";
+import { useDispatch } from "react-redux";
+import { getCurrentUser } from "./features/auth/authActions";
 
 export default function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, [dispatch]);
   return (
     <>
       <div className="flex h-screen w-screen items-center justify-center bg-typey-background text-typey-default">

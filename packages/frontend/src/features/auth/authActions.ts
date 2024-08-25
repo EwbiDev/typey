@@ -36,3 +36,23 @@ export const loginUser = createAsyncThunk(
     }
   },
 );
+
+export const getCurrentUser = createAsyncThunk(
+  "auth/getCurrentUser",
+  async (_, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("accessToken") ?? "";
+      const response = await instance.get("/auth/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        return thunkAPI.rejectWithValue(error.response?.data);
+      }
+      return thunkAPI.rejectWithValue({ message: error.message });
+    }
+  },
+);
