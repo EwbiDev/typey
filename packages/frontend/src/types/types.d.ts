@@ -1,8 +1,4 @@
-import {
-  FieldError,
-  FieldValues,
-  UseFormRegister,
-} from "react-hook-form";
+import { FieldError, FieldValues, UseFormRegister } from "react-hook-form";
 
 declare namespace Passage {
   type AccuracyStats = {
@@ -154,4 +150,20 @@ declare namespace Common {
       text: string;
     };
   }
+}
+
+declare namespace Navigation {
+  namespace Prop {
+    type NavBar = { navigationLinks: NavigationLink[] };
+    type Profile = {
+      navigationLinks: NavigationLink[];
+      user: User.CurrentUser;
+    };
+  }
+
+  type NavigationLink = {
+    name: string;
+    href: string;
+    current: boolean;
+  };
 }
