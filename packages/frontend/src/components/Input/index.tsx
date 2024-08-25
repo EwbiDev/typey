@@ -1,5 +1,7 @@
 import { FieldValues } from "react-hook-form";
 
+import { classNames } from "../../utils/classNames";
+
 import { Common } from "../../types/types";
 
 function capitalizeFirstLetter(string: string): string {
@@ -17,8 +19,6 @@ export default function Input<T extends FieldValues>({
   fieldError,
 }: Common.Prop.InputField<T>) {
   const capitalizedLabel = capitalizeFirstLetter(label);
-
-  const errorClass = "outline-typey-bad focus:outline-typey-bad";
 
   function populateErrorMessage() {
     switch (fieldError!.type) {
@@ -40,11 +40,16 @@ export default function Input<T extends FieldValues>({
       <label className="text-typey-primary">
         {capitalizedLabel}:
         <input
-          className={`block w-full rounded-md border-0 p-2 text-typey-primary outline outline-1 outline-typey-secondary ring-1 focus:ring-2 focus:ring-inset focus:ring-typey-primary-light ${fieldError && errorClass}`}
+          className={classNames(
+            "block w-full rounded-md border-0 p-2 text-typey-primary outline outline-1  ring-1 focus:ring-2 focus:ring-inset ",
+            fieldError
+              ? "outline-typey-bad focus:ring-typey-bad"
+              : "outline-typey-secondary focus:ring-typey-primary-light",
+          )}
           type={inputType}
           {...register(label, { required, minLength, maxLength })}
           placeholder={placeholder}
-        ></input>
+        />
       </label>
       {fieldError && <ErrorTooltip message={populateErrorMessage()} />}
     </div>
