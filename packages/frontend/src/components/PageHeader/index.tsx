@@ -1,18 +1,13 @@
 import { Disclosure, DisclosurePanel } from "@headlessui/react";
+import { useSelector } from "react-redux";
 
-import { TypeyLogo } from "./TypeyLogo";
-import { NavBarDesktop, NavBarMobile } from "./NavBar";
-import { ProfileMobile } from "./Profile";
-import { ProfileDesktop } from "./Profile";
 import { HamburgerMenu } from "./HamburgerMenu";
+import { NavBarDesktop, NavBarMobile } from "./NavBar";
+import { NavItem } from "./NavItem";
+import { TypeyLogo } from "./TypeyLogo";
+import { ProfileDesktop, ProfileMobile } from "./Profile";
 
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  profileLink: "/profile/1",
-};
+import { RootState } from "../../app/store";
 
 const navigationLinks = [
   { name: "Home", href: "/", current: true },
@@ -26,6 +21,8 @@ const userNavigationLinks = [
 ];
 
 export default function PageHeader() {
+  const auth = useSelector((state: RootState) => state.auth);
+
   return (
     <Disclosure as="nav" className="rounded-b-2xl bg-typey-default">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -37,7 +34,18 @@ export default function PageHeader() {
             <NavBarDesktop navigationLinks={navigationLinks} />
           </div>
           <div className="flex items-center">
-            <ProfileDesktop navigationLinks={userNavigationLinks} user={user} />
+            {auth.user && (
+              <ProfileDesktop
+                navigationLinks={userNavigationLinks}
+                user={auth.user}
+              />
+            )}
+            {!auth.user && (
+              <>
+                <NavItem name="Log in" href="/login" current={false} />
+                <NavItem name="Register" href="/register" current={false} />
+              </>
+            )}
             <HamburgerMenu />
           </div>
         </div>
@@ -45,7 +53,12 @@ export default function PageHeader() {
 
       <DisclosurePanel className="md:hidden">
         <NavBarMobile navigationLinks={navigationLinks} />
-        <ProfileMobile navigationLinks={userNavigationLinks} user={user} />
+        {auth.user && (
+          <ProfileMobile
+            navigationLinks={userNavigationLinks}
+            user={auth.user}
+          />
+        )}
       </DisclosurePanel>
     </Disclosure>
   );
