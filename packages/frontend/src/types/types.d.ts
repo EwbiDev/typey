@@ -108,10 +108,20 @@ declare namespace Passage {
 }
 
 declare namespace User {
+  type CurrentUser = {
+    username: string;
+  };
+
   type LoginFormData = {
     username: string;
     password: string;
-  }
+  };
+
+  type RegistrationErrorResponse = {
+    message: string;
+    error: string;
+    statusCode: number;
+  };
 
   type RegistrationFormData = {
     username: string;
