@@ -7,6 +7,7 @@ import SubmitInput from "../SubmitInput";
 import { authApi } from "../../utils/api";
 
 import { User } from "../../types/types";
+import Container from "../Container";
 
 export default function LoginForm() {
   const {
@@ -34,12 +35,7 @@ export default function LoginForm() {
 
   return (
     <>
-      <div className="flex flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-typey-primary">
-            Sign in
-          </h2>
-        </div>
+      <Container>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-typey-default px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -76,7 +72,7 @@ export default function LoginForm() {
             </a>
           </p>
         </div>
-      </div>
+      </Container>
     </>
   );
 }
