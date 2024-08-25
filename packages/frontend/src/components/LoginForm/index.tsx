@@ -8,6 +8,7 @@ import { authApi } from "../../utils/api";
 
 import { User } from "../../types/types";
 import Container from "../Container";
+import { ErrorIcon } from "../Icons";
 
 export default function LoginForm() {
   const {
@@ -80,7 +81,7 @@ export default function LoginForm() {
 function ErrorMessage({ message }: { message: string }) {
   return (
     <div className="flex justify-center gap-2 text-typey-bad">
-      <span className="material-symbols-outlined">Error</span>
+      <ErrorIcon />
       {message}
     </div>
   );
