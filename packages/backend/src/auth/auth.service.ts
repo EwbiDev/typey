@@ -21,12 +21,14 @@ export class AuthService {
     );
 
     if (!passwordMatch) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Login details do not match.');
     }
 
-    const payload = { sub: user.id, username: user.username };
+    const tokenPayload = { sub: user.id, username: user.username };
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      userId: user.id,
+      username: user.username,
+      accessToken: await this.jwtService.signAsync(tokenPayload),
     };
   }
 }

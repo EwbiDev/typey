@@ -12,7 +12,7 @@ export class AuthController {
   @Post('login')
   @ApiOperation({
     summary: 'Login with user details',
-    description: 'Returns a JWT on successful login attempt.',
+    description: 'Returns user details and JWT on successful login attempt.',
   })
   async logIn(@Body() logInDto: LogInDto) {
     return await this.authService.logIn(logInDto.username, logInDto.password);
