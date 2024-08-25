@@ -57,7 +57,7 @@ export default function LoginForm() {
                 fieldError={errors.password}
                 required
               />
-              <SubmitInput type="secondaryFull" errors={errors} />
+              <SubmitInput type="secondaryFull" errors={errors} text="Log in" />
               {errorMessage && <ErrorMessage message={errorMessage} />}
             </form>
           </div>

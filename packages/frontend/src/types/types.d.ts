@@ -135,8 +135,9 @@ declare namespace Common {
     };
 
     type SubmitInput = {
-      type: "primaryEmpty" | "secondaryFull"
-      errors: FieldErrors
+      type: "primaryEmpty" | "secondaryFull";
+      errors: FieldErrors;
+      text: string;
     };
   }
 }

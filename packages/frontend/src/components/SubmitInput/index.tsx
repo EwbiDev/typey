@@ -1,6 +1,10 @@
 import { Common } from "../../types/types";
 
-export default function SubmitInput({ type, errors }: Common.Prop.SubmitInput) {
+export default function SubmitInput({
+  type,
+  errors,
+  text = "Submit",
+}: Common.Prop.SubmitInput) {
   const typeVariants = {
     secondaryFull: {
       bg: "bg-typey-primary",
@@ -37,7 +41,7 @@ export default function SubmitInput({ type, errors }: Common.Prop.SubmitInput) {
   const classNameBase = `w-full rounded-lg p-2 cursor-pointer`;
   const className = `${classNameBase} ${bg} ${textClr} ${border} ${hoverBg} ${hoverTextClr} ${borderHover}`;
 
-  const text = showError ? "Error!" : "Submit";
+  const displayText = showError ? "Error!" : text;
 
-  return <input type="submit" className={className} value={text} />;
+  return <input type="submit" className={className} value={displayText} />;
 }
