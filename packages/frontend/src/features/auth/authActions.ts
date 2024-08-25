@@ -26,6 +26,7 @@ export const loginUser = createAsyncThunk(
   async (loginData: User.LoginFormData, thunkAPI) => {
     try {
       const response = await instance.post("/auth/login", loginData);
+      localStorage.setItem("accessToken", response.data.access_token)
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {

@@ -2,17 +2,19 @@ import { createSlice } from "@reduxjs/toolkit";
 import { loginUser, registerUser } from "./authActions";
 import { User } from "../../types/types";
 
+const accessToken = localStorage.getItem("accessToken") || null
+
 interface LoginState {
   loading: boolean;
   user: User.CurrentUser | null | undefined;
-  userToken: string | null;
+  accessToken: string | null;
   error: User.RegistrationErrorResponse | null;
 }
 
 const initialState: LoginState = {
   loading: false,
   user: undefined,
-  userToken: null,
+  accessToken,
   error: null,
 };
 
