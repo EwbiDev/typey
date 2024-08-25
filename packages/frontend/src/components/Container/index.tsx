@@ -1,6 +1,6 @@
 export default function Container({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex grow flex-col items-center justify-center gap-8">
+    <div className="flex flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
       {children}
     </div>
   );
