@@ -1,38 +1,39 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 
+import Container from "../Container";
+import { ErrorIcon } from "../Icons";
 import Input from "../Input";
 import SubmitInput from "../SubmitInput";
 
-import { authApi } from "../../utils/api";
+import { RootState } from "../../app/store";
+import { loginUser } from "../../features/auth/authActions";
 
 import { User } from "../../types/types";
-import Container from "../Container";
-import { ErrorIcon } from "../Icons";
 
 export default function LoginForm() {
+  const dispatch = useDispatch();
+  const auth = useSelector((state: RootState) => state.auth);
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<User.LoginFormData>();
-  const [errorMessage, setErrorMessage] = useState<string>();
 
   const onSubmit: SubmitHandler<User.LoginFormData> = async (data) => {
-    const response = await authApi.login(data);
-
-    if (response && response?.status >= 201 && response?.status < 400) {
-      setErrorMessage(undefined);
-      return;
-    }
-
-    if (response && response?.status == 401) {
-      setErrorMessage("Username and password does not match");
-      return;
-    }
-
-    setErrorMessage("Unknown error, please try again later");
+    dispatch(loginUser(data));
   };
+
+  useEffect(() => {
+    if (auth.error?.statusCode === 401) {
+      // Unauthorized
+      setError("username", { type: "custom" });
+      setError("password", { type: "custom" });
+    }
+  }, [auth.error, setError]);
 
   return (
     <>
@@ -40,7 +41,7 @@ export default function LoginForm() {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-typey-default px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-              {errorMessage && <ErrorMessage message={errorMessage} />}
+              {auth.error && <ErrorMessage message={auth.error.message} />}
               <Input
                 inputType="text"
                 label="username"
