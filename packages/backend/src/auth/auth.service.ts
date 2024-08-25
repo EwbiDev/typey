@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { UsersService } from 'src/users/users.service';
@@ -12,7 +12,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async logIn(username: string, password: string) {
+  async validateUser(username: string, password: string) {
     const user = await this.usersService.findPasswordByUsername(username);
 
     const passwordMatch = await bcrypt.compare(
@@ -20,10 +20,15 @@ export class AuthService {
       user ? user.passwordHash : '',
     );
 
-    if (!passwordMatch) {
-      throw new UnauthorizedException('Login details do not match.');
+    if (passwordMatch) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { passwordHash, ...result } = user;
+      return result;
     }
+    return null;
+  }
 
+  async logIn(user: { id: number; username: string }) {
     const tokenPayload = { sub: user.id, username: user.username };
     return {
       userId: user.id,
