@@ -27,7 +27,9 @@ export default function Input<T extends FieldValues>({
       case "maxLength":
         return `maximum ${maxLength} characters`;
       case "required":
-        return `required field`;
+        return `required`;
+      case "custom":
+        return fieldError?.message || "";
       default:
         return "unknown error";
     }
