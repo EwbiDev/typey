@@ -107,6 +107,8 @@ declare namespace User {
   type CurrentUser = {
     userId: number;
     username: string;
+    email?: string;
+    image?: string;
   };
 
   type LoginFormData = {
