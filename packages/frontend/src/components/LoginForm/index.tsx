@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import Container from "../Container";
 import { ErrorIcon } from "../Icons";
@@ -15,7 +16,9 @@ import { User } from "../../types/types";
 export default function LoginForm() {
   const dispatch = useDispatch();
   const auth = useSelector((state: RootState) => state.auth);
-  
+
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -32,8 +35,14 @@ export default function LoginForm() {
       // Unauthorized
       setError("username", { type: "custom" });
       setError("password", { type: "custom" });
+      return;
     }
-  }, [auth.error, setError]);
+
+    if (auth.user) {
+      navigate("/");
+      return;
+    }
+  }, [auth, setError, navigate]);
 
   return (
     <>
