@@ -39,6 +39,7 @@ export default function LoginForm() {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-typey-default px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              {errorMessage && <ErrorMessage message={errorMessage} />}
               <Input
                 inputType="text"
                 label="username"
@@ -58,7 +59,6 @@ export default function LoginForm() {
                 required
               />
               <SubmitInput type="secondaryFull" errors={errors} text="Log in" />
-              {errorMessage && <ErrorMessage message={errorMessage} />}
             </form>
           </div>
 
