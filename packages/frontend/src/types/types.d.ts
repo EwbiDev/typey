@@ -164,7 +164,8 @@ declare namespace Navigation {
 
   type NavigationLink = {
     name: string;
-    href: string;
+    href?: string;
     current: boolean;
+    onClick?: () => void;
   };
 }

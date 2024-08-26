@@ -1,5 +1,5 @@
 import { Disclosure, DisclosurePanel } from "@headlessui/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { HamburgerMenu } from "./HamburgerMenu";
 import { NavBarDesktop, NavBarMobile } from "./NavBar";
@@ -9,19 +9,28 @@ import { ProfileDesktop, ProfileMobile } from "./Profile";
 import { RootState } from "../../app/store";
 import { logoutUser } from "../../features/auth/authActions";
 
-const navigationLinks = [
-  { name: "Home", href: "/", current: true },
-  { name: "Create Passage", href: "/passage/new", current: false },
-];
-
-const userNavigationLinks = [
-  { name: "Profile", href: "#", current: false },
-  { name: "Settings", href: "#", current: false },
-  { name: "Sign out", onClick: logoutUser, current: false },
-];
-
 export default function PageHeader() {
+  const dispatch = useDispatch();
   const auth = useSelector((state: RootState) => state.auth);
+
+  const userLinks = [
+    { name: "Profile", href: "#", current: false },
+    { name: "Settings", href: "#", current: false },
+    { name: "Sign out", onClick: () => dispatch(logoutUser()), current: false },
+  ];
+
+  const guestLinks = [
+    { name: "Register", href: "/register", current: false },
+    { name: "Log in", href: "/login", current: false },
+  ];
+
+  const userNavigationLinks = auth.user ? userLinks : guestLinks;
+
+  const navigationLinks = [
+    { name: "Home", href: "/", current: true },
+    { name: "Create Passage", href: "/passage/new", current: false },
+  ];
+
   return (
     <Disclosure as="nav" className="rounded-b-2xl bg-typey-default">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -41,7 +50,7 @@ export default function PageHeader() {
 
       <DisclosurePanel className="md:hidden">
         <NavBarMobile navigationLinks={navigationLinks} />
-        {auth.user && <ProfileMobile navigationLinks={userNavigationLinks} />}
+        <ProfileMobile navigationLinks={userNavigationLinks} />
       </DisclosurePanel>
     </Disclosure>
   );

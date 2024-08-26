@@ -5,7 +5,7 @@ import {
   MenuItem,
   DisclosureButton,
 } from "@headlessui/react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { DefaultUserIcon } from "../Icons";
 import { NavItem } from "./NavItem";
@@ -18,8 +18,6 @@ import { Navigation } from "../../types/types";
 
 export function ProfileDesktop({ navigationLinks }: Navigation.Prop.Profile) {
   const auth = useSelector((state: RootState) => state.auth);
-  const dispatch = useDispatch();
-
   if (auth.loading) {
     return (
       <GradientLoader className="hidden h-12 w-12 rounded-full md:block" />
@@ -76,7 +74,7 @@ export function ProfileDesktop({ navigationLinks }: Navigation.Prop.Profile) {
                   <MenuItem key={item.name}>
                     <div
                       className={classNames(className, "cursor-pointer")}
-                      onClick={() => dispatch(item.onClick())}
+                      onClick={item.onClick}
                     >
                       {item.name}
                     </div>
@@ -94,37 +92,59 @@ export function ProfileDesktop({ navigationLinks }: Navigation.Prop.Profile) {
 export function ProfileMobile({ navigationLinks }: Navigation.Prop.Profile) {
   const auth = useSelector((state: RootState) => state.auth);
   return (
-    <div className="border-t border-typey-secondary pb-3 pt-4">
-      <div className="flex items-center px-5 sm:px-6">
-        <div className="flex-shrink-0">
-          {auth?.user?.image && (
-            <img
-              alt=""
-              src={auth.user.image}
-              className="h-12 w-12 rounded-full"
-            />
-          )}
-          {!auth?.user?.image && (
-            <DefaultUserIcon className="h-12 w-12 bg-typey-secondary" />
-          )}
-        </div>
-        <div className="ml-3">
-          <div className="text-base font-medium text-typey-primary">
-            {auth?.user?.username}
+    <div className="space-y-3 border-t border-typey-secondary py-3">
+      {auth.user && (
+        <div className="flex items-center px-5 sm:px-6">
+          <div className="flex-shrink-0">
+            {auth?.user?.image && (
+              <img
+                alt=""
+                src={auth.user.image}
+                className="h-12 w-12 rounded-full"
+              />
+            )}
+            {!auth?.user?.image && (
+              <DefaultUserIcon className="h-12 w-12 bg-typey-secondary" />
+            )}
+          </div>
+          <div className="ml-3">
+            <div className="text-base font-medium text-typey-primary">
+              {auth?.user?.username}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="mt-3 space-y-1 px-2 sm:px-3">
-        {navigationLinks.map((item) => (
-          <DisclosureButton
-            key={item.name}
-            as="a"
-            href={item.href}
-            className="block rounded-md px-3 py-2 text-base font-medium text-typey-primary hover:bg-typey-primary-light hover:text-white"
-          >
-            {item.name}
-          </DisclosureButton>
-        ))}
+      )}
+      <div className="space-y-1 px-2 sm:px-3">
+        {navigationLinks.map((item) => {
+          const className =
+            "block rounded-md px-3 py-2 text-base font-medium text-typey-primary hover:bg-typey-primary-light hover:text-white";
+          if (item.href) {
+            return (
+              <DisclosureButton
+                key={item.name}
+                as="a"
+                href={item.href}
+                className={className}
+              >
+                {item.name}
+              </DisclosureButton>
+            );
+          }
+
+          if (item.onClick) {
+            return (
+              <DisclosureButton
+                key={item.name}
+                as="div"
+                onClick={item.onClick}
+                className={classNames(className, "cursor-pointer")}
+              >
+                {" "}
+                {item.name}
+              </DisclosureButton>
+            );
+          }
+        })}
       </div>
     </div>
   );
