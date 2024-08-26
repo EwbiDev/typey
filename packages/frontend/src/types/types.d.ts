@@ -159,7 +159,6 @@ declare namespace Navigation {
     type NavBar = { navigationLinks: NavigationLink[] };
     type Profile = {
       navigationLinks: NavigationLink[];
-      user: User.CurrentUser;
     };
   }
 

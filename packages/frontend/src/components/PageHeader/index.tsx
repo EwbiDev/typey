@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 
 import { HamburgerMenu } from "./HamburgerMenu";
 import { NavBarDesktop, NavBarMobile } from "./NavBar";
-import { NavItem } from "./NavItem";
 import { TypeyLogo } from "./TypeyLogo";
 import { ProfileDesktop, ProfileMobile } from "./Profile";
 
@@ -22,7 +21,6 @@ const userNavigationLinks = [
 
 export default function PageHeader() {
   const auth = useSelector((state: RootState) => state.auth);
-
   return (
     <Disclosure as="nav" className="rounded-b-2xl bg-typey-default">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -34,16 +32,7 @@ export default function PageHeader() {
             <NavBarDesktop navigationLinks={navigationLinks} />
           </div>
           <div className="flex items-center">
-            {auth.user === null && (
-              <>
-                <NavItem name="Log in" href="/login" current={false} />
-                <NavItem name="Register" href="/register" current={false} />
-              </>
-            )}
-            <ProfileDesktop
-              navigationLinks={userNavigationLinks}
-              user={auth.user}
-            />
+            <ProfileDesktop navigationLinks={userNavigationLinks} />
             <HamburgerMenu />
           </div>
         </div>
@@ -51,12 +40,7 @@ export default function PageHeader() {
 
       <DisclosurePanel className="md:hidden">
         <NavBarMobile navigationLinks={navigationLinks} />
-        {auth.user && (
-          <ProfileMobile
-            navigationLinks={userNavigationLinks}
-            user={auth.user}
-          />
-        )}
+        {auth.user && <ProfileMobile navigationLinks={userNavigationLinks} />}
       </DisclosurePanel>
     </Disclosure>
   );
