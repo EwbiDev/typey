@@ -7,6 +7,7 @@ import { TypeyLogo } from "./TypeyLogo";
 import { ProfileDesktop, ProfileMobile } from "./Profile";
 
 import { RootState } from "../../app/store";
+import { logoutUser } from "../../features/auth/authActions";
 
 const navigationLinks = [
   { name: "Home", href: "/", current: true },
@@ -16,7 +17,7 @@ const navigationLinks = [
 const userNavigationLinks = [
   { name: "Profile", href: "#", current: false },
   { name: "Settings", href: "#", current: false },
-  { name: "Sign out", href: "#", current: false },
+  { name: "Sign out", onClick: logoutUser, current: false },
 ];
 
 export default function PageHeader() {

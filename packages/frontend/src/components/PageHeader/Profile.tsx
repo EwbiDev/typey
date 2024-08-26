@@ -5,18 +5,20 @@ import {
   MenuItem,
   DisclosureButton,
 } from "@headlessui/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { DefaultUserIcon } from "../Icons";
 import { NavItem } from "./NavItem";
 import { GradientLoader } from "../Loader";
 
+import { classNames } from "../../utils/classNames";
 import { RootState } from "../../app/store";
 
 import { Navigation } from "../../types/types";
 
 export function ProfileDesktop({ navigationLinks }: Navigation.Prop.Profile) {
   const auth = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
 
   if (auth.loading) {
     return (
@@ -56,16 +58,32 @@ export function ProfileDesktop({ navigationLinks }: Navigation.Prop.Profile) {
             transition
             className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
           >
-            {navigationLinks.map((item) => (
-              <MenuItem key={item.name}>
-                <a
-                  href={item.href}
-                  className="block px-4 py-2 text-sm text-typey-primary data-[focus]:bg-typey-primary-light data-[focus]:text-white"
-                >
-                  {item.name}
-                </a>
-              </MenuItem>
-            ))}
+            {navigationLinks.map((item) => {
+              const className =
+                "block px-4 py-2 text-sm text-typey-primary data-[focus]:bg-typey-primary-light data-[focus]:text-white";
+              if (item.href) {
+                return (
+                  <MenuItem key={item.name}>
+                    <a href={item.href} className={className}>
+                      {item.name}
+                    </a>
+                  </MenuItem>
+                );
+              }
+
+              if (item.onClick) {
+                return (
+                  <MenuItem key={item.name}>
+                    <div
+                      className={classNames(className, "cursor-pointer")}
+                      onClick={() => dispatch(item.onClick())}
+                    >
+                      {item.name}
+                    </div>
+                  </MenuItem>
+                );
+              }
+            })}
           </MenuItems>
         </Menu>
       )}

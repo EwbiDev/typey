@@ -37,6 +37,10 @@ export const loginUser = createAsyncThunk(
   },
 );
 
+export const logoutUser = createAsyncThunk("auth/logout", async () => {
+  localStorage.removeItem("accessToken");
+});
+
 export const getCurrentUser = createAsyncThunk(
   "auth/getCurrentUser",
   async (_, thunkAPI) => {

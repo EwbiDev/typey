@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getCurrentUser, loginUser, registerUser } from "./authActions";
+import {
+  getCurrentUser,
+  loginUser,
+  logoutUser,
+  registerUser,
+} from "./authActions";
 import { User } from "../../types/types";
 
 const accessToken = localStorage.getItem("accessToken") || null;
@@ -61,6 +66,10 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(getCurrentUser.rejected, (state) => {
+        state.loading = false;
+        state.user = null;
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
         state.loading = false;
         state.user = null;
       });
