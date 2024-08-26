@@ -12,7 +12,7 @@ interface LoginState {
 }
 
 const initialState: LoginState = {
-  loading: false,
+  loading: true,
   user: undefined,
   accessToken,
   error: null,
@@ -60,9 +60,8 @@ const authSlice = createSlice({
         state.user = { userId, username };
         state.error = null;
       })
-      .addCase(getCurrentUser.rejected, (state, action) => {
+      .addCase(getCurrentUser.rejected, (state) => {
         state.loading = false;
-        state.error = action.payload;
         state.user = null;
       });
   },
