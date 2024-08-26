@@ -8,13 +8,13 @@ import { ErrorIcon } from "../Icons";
 import Input from "../Input";
 import SubmitInput from "../SubmitInput";
 
-import { RootState } from "../../app/store";
+import { AppDispatch, RootState } from "../../app/store";
 import { loginUser } from "../../features/auth/authActions";
 
 import { User } from "../../types/types";
 
 export default function LoginForm() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const auth = useSelector((state: RootState) => state.auth);
 
   const navigate = useNavigate();

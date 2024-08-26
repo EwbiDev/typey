@@ -6,11 +6,11 @@ import { NavBarDesktop, NavBarMobile } from "./NavBar";
 import { TypeyLogo } from "./TypeyLogo";
 import { ProfileDesktop, ProfileMobile } from "./Profile";
 
-import { RootState } from "../../app/store";
+import { AppDispatch, RootState } from "../../app/store";
 import { logoutUser } from "../../features/auth/authActions";
 
 export default function PageHeader() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const auth = useSelector((state: RootState) => state.auth);
 
   const userLinks = [

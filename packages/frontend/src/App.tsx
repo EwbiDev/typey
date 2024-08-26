@@ -10,9 +10,10 @@ import RegistrationForm from "./components/RegistrationForm";
 
 import { getCurrentUser } from "./features/auth/authActions";
 import { passageApi } from "./utils/api";
+import { AppDispatch } from "./app/store";
 
 export default function App() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(getCurrentUser());

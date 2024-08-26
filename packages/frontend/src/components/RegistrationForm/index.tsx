@@ -10,7 +10,7 @@ import Container from "../Container";
 import SubmitInput from "../SubmitInput";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../features/auth/authActions";
-import { RootState } from "../../app/store";
+import { AppDispatch, RootState } from "../../app/store";
 
 interface ErrorDetails {
   message: string;
@@ -19,7 +19,7 @@ interface ErrorDetails {
 }
 
 export default function RegistrationForm() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { loading, success, user, error } = useSelector(
     (state: RootState) => state.auth,
   );
