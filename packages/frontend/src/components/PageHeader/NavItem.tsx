@@ -1,12 +1,14 @@
 import { DisclosureButton } from "@headlessui/react";
+import { Link } from "react-router-dom";
+
 import { classNames } from "../../utils/classNames";
 import { Navigation } from "../../types/types";
 
 export function NavItem({ href, current, name }: Navigation.NavigationLink) {
   return (
     <DisclosureButton
-      as="a"
-      href={href}
+      as={Link}
+      to={href}
       aria-current={current ? "page" : undefined}
       className={classNames(
         current
