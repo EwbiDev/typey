@@ -1,10 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 
 import * as bcrypt from 'bcrypt';
 
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UserJwtDto } from './dto/user.dto';
+import { AuthService } from 'src/auth/auth.service';
 
 type UserWithoutInfo = Omit<
   User,
@@ -13,20 +15,26 @@ type UserWithoutInfo = Omit<
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    @Inject(forwardRef(() => AuthService))
+    private authService: AuthService,
+    private prisma: PrismaService,
+  ) {}
 
   private readonly _select = { id: true, username: true };
 
-  async create(userData: CreateUserDto): Promise<UserWithoutInfo> {
+  async create(userData: CreateUserDto): Promise<UserJwtDto> {
     const passwordHash = await bcrypt.hash(userData.password, 12);
 
-    return await this.prisma.user.create({
+    const user = await this.prisma.user.create({
       data: {
         username: userData.username,
         passwordHash,
       },
       select: this._select,
     });
+
+    return await this.authService.logIn(user);
   }
 
   findByUsername(username: string): Promise<UserWithoutInfo> {
