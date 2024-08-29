@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Container from "../Container";
-import { ErrorIcon } from "../Icons";
+import { ErrorMessage } from "../ErrorMessage";
 import Input from "../Input";
 import SubmitInput from "../SubmitInput";
 
@@ -85,14 +85,5 @@ export default function LoginForm() {
         </div>
       </Container>
     </>
-  );
-}
-
-function ErrorMessage({ message }: { message: string }) {
-  return (
-    <div className="flex justify-center gap-2 text-typey-bad">
-      <ErrorIcon />
-      {message}
-    </div>
   );
 }
