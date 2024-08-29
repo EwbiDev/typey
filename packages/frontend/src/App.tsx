@@ -11,6 +11,7 @@ import RegistrationForm from "./components/RegistrationForm";
 import { getCurrentUser } from "./features/auth/authActions";
 import { passageApi } from "./utils/api";
 import { AppDispatch } from "./app/store";
+import RouteSync from "./components/RouteSync";
 
 export default function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -21,12 +22,13 @@ export default function App() {
       dispatch(getCurrentUser());
     }
   }, [dispatch]);
-  
+
   return (
     <>
       <div className="flex h-screen w-screen items-center justify-center bg-typey-background text-typey-default">
         <div className="container mx-8 flex h-full w-full flex-col">
           <PageHeader />
+          <RouteSync />
           <Routes>
             <Route path="/passage/new" element={<PassageCreate />} />
             <Route path="/passage/:passageId" element={<PassageContainer />} />
