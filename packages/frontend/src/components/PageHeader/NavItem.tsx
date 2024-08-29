@@ -14,10 +14,8 @@ export function NavItem({ navigationLink }: Navigation.Prop.NavItem) {
   const current = navigationLink.name === currentPage;
 
   const className = classNames(
-    current
-      ? "bg-typey-primary text-typey-default"
-      : "text-typey-primary hover:bg-typey-primary-light hover:text-white",
-    "block rounded-md px-3 py-2 text-base font-medium",
+    current ? "bg-typey-primary text-typey-default" : "text-typey-primary ",
+    "block rounded-md px-3 py-2 text-base font-medium hover:bg-typey-primary-light hover:text-white",
   );
 
   if ("href" in navigationLink) {
