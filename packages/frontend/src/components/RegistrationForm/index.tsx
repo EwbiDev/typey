@@ -1,28 +1,22 @@
-import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import Input from "../Input";
-import { User } from "../../types/types";
-import { userApi } from "../../utils/api";
-import { FailureMessage } from "../FailureMessage";
 import Container from "../Container";
+import Card from "../Card";
+import Center from "../Center";
+import Input from "../Input";
 import SubmitInput from "../SubmitInput";
-import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../features/auth/authActions";
-import { AppDispatch, RootState } from "../../app/store";
 
-interface ErrorDetails {
-  message: string;
-  error: string;
-  statusCode?: number;
-}
+import { AppDispatch, RootState } from "../../app/store";
+import { registerUser } from "../../features/auth/authActions";
+
+import { User } from "../../types/types";
+import { ErrorMessage } from "../ErrorMessage";
 
 export default function RegistrationForm() {
   const dispatch = useDispatch<AppDispatch>();
-  const { loading, success, user, error } = useSelector(
-    (state: RootState) => state.auth,
-  );
+  const auth = useSelector((state: RootState) => state.auth);
   const {
     register,
     handleSubmit,
@@ -35,63 +29,43 @@ export default function RegistrationForm() {
 
   return (
     <Container>
-      {!success && (
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex w-1/2 max-w-96 flex-col gap-4 rounded-md p-4"
-        >
-          <h2>Register</h2>
-          <Input
-            inputType="text"
-            label="username"
-            placeholder=""
-            register={register}
-            minLength={1}
-            maxLength={24}
-            fieldError={errors.username}
-            required
-          />
-          <Input
-            inputType="password"
-            label="password"
-            placeholder=""
-            register={register}
-            minLength={8}
-            maxLength={128}
-            fieldError={errors.password}
-            required
-          />
-          <SubmitInput type="secondaryFull" errors={errors} />
-        </form>
-      )}
-      {success && <SuccessMessage />}
-      {!success && error && <FailureMessage message={error.message} />}
-      {!success && <LoginLink />}
+      <Center>
+        <Card>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            {auth.error && <ErrorMessage message={auth.error.message} />}
+            <Input
+              inputType="text"
+              label="username"
+              placeholder=""
+              register={register}
+              minLength={1}
+              maxLength={24}
+              fieldError={errors.username}
+              required
+            />
+            <Input
+              inputType="password"
+              label="password"
+              placeholder=""
+              register={register}
+              minLength={8}
+              maxLength={128}
+              fieldError={errors.password}
+              required
+            />
+            <SubmitInput type="secondaryFull" text="Register" />
+          </form>
+        </Card>
+        <p className="mt-10 text-center text-sm text-typey-primary">
+          Have an account?{" "}
+          <Link
+            to="/register"
+            className="font-semibold leading-6 text-typey-secondary hover:text-typey-default"
+          >
+            Log in here!
+          </Link>
+        </p>
+      </Center>
     </Container>
-  );
-}
-
-function SuccessMessage() {
-  return (
-    <div>
-      <h2>Registration success!</h2>
-      <p>
-        You may now login{" "}
-        <Link to="/login" className=" text-typey-primary underline">
-          here
-        </Link>
-      </p>
-    </div>
-  );
-}
-
-function LoginLink() {
-  return (
-    <div>
-      Have an account? Login{" "}
-      <Link to="/login" className=" text-typey-primary underline">
-        here
-      </Link>
-    </div>
   );
 }
