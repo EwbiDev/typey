@@ -128,6 +128,32 @@ declare namespace User {
   };
 }
 
+declare namespace Dto {
+  type ErrorResponse = {
+    message: string;
+    error: string;
+    statusCode: number;
+  };
+
+  type Jwt = {
+    accessToken: string;
+  }
+
+  type User = {
+    userId: number;
+    username: string;
+    email?: string;
+    image?: string;
+  };
+
+  type UserJwt = User & Jwt;
+
+  type UserLogin = {
+    username: string;
+    password: string;
+  };
+}
+
 declare namespace Common {
   namespace Prop {
     type Button = {
