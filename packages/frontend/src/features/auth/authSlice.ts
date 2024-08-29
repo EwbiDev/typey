@@ -13,11 +13,11 @@ interface LoginState {
   loading: boolean;
   user: User.CurrentUser | null | undefined;
   accessToken: string | null;
-  error: User.RegistrationErrorResponse | null;
+  error: User.RegistrationErrorResponse | null | undefined;
 }
 
 const initialState: LoginState = {
-  loading: true,
+  loading: false,
   user: undefined,
   accessToken,
   error: null,
