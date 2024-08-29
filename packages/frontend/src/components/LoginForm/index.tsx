@@ -13,6 +13,7 @@ import { AppDispatch, RootState } from "../../app/store";
 import { loginUser } from "../../features/auth/authActions";
 
 import { User } from "../../types/types";
+import Card from "../Card";
 
 export default function LoginForm() {
   const dispatch = useDispatch<AppDispatch>();
@@ -49,7 +50,7 @@ export default function LoginForm() {
     <>
       <Container>
         <Center>
-          <div className="bg-typey-default px-6 py-12 shadow sm:rounded-lg sm:px-12">
+          <Card>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               {auth.error && <ErrorMessage message={auth.error.message} />}
               <Input
@@ -72,7 +73,7 @@ export default function LoginForm() {
               />
               <SubmitInput type="secondaryFull" text="Log in" />
             </form>
-          </div>
+          </Card>
 
           <p className="mt-10 text-center text-sm text-typey-primary">
             No account?{" "}
