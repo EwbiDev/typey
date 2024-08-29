@@ -14,21 +14,21 @@ export default function PageHeader() {
   const auth = useSelector((state: RootState) => state.auth);
 
   const userLinks = [
-    { name: "Profile", href: "#", current: false },
-    { name: "Settings", href: "#", current: false },
-    { name: "Sign out", onClick: () => dispatch(logoutUser()), current: false },
+    { text: "Profile", href: "#", name: "profile"},
+    { text: "Settings", href: "#", name: "settings"},
+    { text: "Sign out", onClick: () => dispatch(logoutUser()), name: "signOut"},
   ];
 
   const guestLinks = [
-    { name: "Register", href: "/register", current: false },
-    { name: "Log in", href: "/login", current: false },
+    { text: "Register", href: "/register", name: "register"},
+    { text: "Log in", href: "/login", name: "logIn"},
   ];
 
   const userNavigationLinks = auth.user ? userLinks : guestLinks;
 
   const navigationLinks = [
-    { name: "Home", href: "/", current: true },
-    { name: "Create Passage", href: "/passage/new", current: false },
+    { text: "Home", href: "/", name: "home"},
+    { text: "Create Passage", href: "/passage/new", name: "createPassage"},
   ];
 
   return (

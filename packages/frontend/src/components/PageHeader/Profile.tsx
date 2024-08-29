@@ -1,18 +1,11 @@
-import {
-  Menu,
-  MenuButton,
-  MenuItems,
-  MenuItem,
-  DisclosureButton,
-} from "@headlessui/react";
-import { Link } from "react-router-dom";
+import { Menu, MenuButton, MenuItems } from "@headlessui/react";
+
 import { useSelector } from "react-redux";
 
 import { DefaultUserIcon } from "../Icons";
-import { NavItem } from "./NavItem";
+import { NavItemMap } from "./NavItem";
 import { GradientLoader } from "../Loader";
 
-import { classNames } from "../../utils/classNames";
 import { RootState } from "../../app/store";
 
 import { Navigation } from "../../types/types";
@@ -27,12 +20,7 @@ export function ProfileDesktop({ navigationLinks }: Navigation.Prop.Profile) {
 
   return (
     <div className="hidden md:ml-4 md:flex md:flex-shrink-0 md:items-center">
-      {!auth.user && (
-        <>
-          <NavItem name="Register" href="/register" current={false} />
-          <NavItem name="Log in" href="/login" current={false} />
-        </>
-      )}
+      {!auth.user && <NavItemMap navigationLinks={navigationLinks} />}
 
       {/* Profile dropdown */}
       {auth.user && (
@@ -57,32 +45,7 @@ export function ProfileDesktop({ navigationLinks }: Navigation.Prop.Profile) {
             transition
             className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
           >
-            {navigationLinks.map((item) => {
-              const className =
-                "block px-4 py-2 text-sm text-typey-primary data-[focus]:bg-typey-primary-light data-[focus]:text-white";
-              if ("href" in item) {
-                return (
-                  <MenuItem key={item.name}>
-                    <Link to={item.href} className={className}>
-                      {item.name}
-                    </Link>
-                  </MenuItem>
-                );
-              }
-
-              if ("onClick" in item) {
-                return (
-                  <MenuItem key={item.name}>
-                    <div
-                      className={classNames(className, "cursor-pointer")}
-                      onClick={item.onClick}
-                    >
-                      {item.name}
-                    </div>
-                  </MenuItem>
-                );
-              }
-            })}
+            <NavItemMap navigationLinks={navigationLinks} />
           </MenuItems>
         </Menu>
       )}
@@ -116,36 +79,7 @@ export function ProfileMobile({ navigationLinks }: Navigation.Prop.Profile) {
         </div>
       )}
       <div className="space-y-1 px-2 sm:px-3">
-        {navigationLinks.map((item) => {
-          const className =
-            "block rounded-md px-3 py-2 text-base font-medium text-typey-primary hover:bg-typey-primary-light hover:text-white";
-          if ("href" in item) {
-            return (
-              <DisclosureButton
-                key={item.name}
-                as="a"
-                href={item.href}
-                className={className}
-              >
-                {item.name}
-              </DisclosureButton>
-            );
-          }
-
-          if ("onClick" in item) {
-            return (
-              <DisclosureButton
-                key={item.name}
-                as="div"
-                onClick={item.onClick}
-                className={classNames(className, "cursor-pointer")}
-              >
-                {" "}
-                {item.name}
-              </DisclosureButton>
-            );
-          }
-        })}
+        <NavItemMap navigationLinks={navigationLinks} />
       </div>
     </div>
   );

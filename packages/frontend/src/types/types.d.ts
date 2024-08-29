@@ -186,17 +186,20 @@ declare namespace Navigation {
     type Profile = {
       navigationLinks: (NavigationLink | NavigationButton)[];
     };
+    type NavItem = {
+      navigationLink: NavigationLink | NavigationButton
+    }
   }
 
   type NavigationButton = {
     name: string;
     onClick: () => void;
-    current: boolean;
+    text: string;
   }
 
   type NavigationLink = {
     name: string;
     href: string;
-    current: boolean;
+    text: string;
   };
 }
