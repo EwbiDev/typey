@@ -6,7 +6,7 @@ import { passageApi } from "../../utils/api";
 import { Passage } from "../../types/types";
 import Input from "../Input";
 import SubmitInput from "../SubmitInput";
-import { FailureMessage } from "../FailureMessage";
+
 import Container from "../Container";
 
 interface ErrorDetails {
