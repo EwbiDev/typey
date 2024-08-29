@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Center from "../Center";
 import Container from "../Container";
@@ -77,12 +77,12 @@ export default function LoginForm() {
 
           <p className="mt-10 text-center text-sm text-typey-primary">
             No account?{" "}
-            <a
-              href="/register"
+            <Link
+              to="/register"
               className="font-semibold leading-6 text-typey-secondary hover:text-typey-default"
             >
               Register here!
-            </a>
+            </Link>
           </p>
         </Center>
       </Container>

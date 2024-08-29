@@ -5,6 +5,7 @@ import {
   MenuItem,
   DisclosureButton,
 } from "@headlessui/react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { DefaultUserIcon } from "../Icons";
@@ -62,9 +63,9 @@ export function ProfileDesktop({ navigationLinks }: Navigation.Prop.Profile) {
               if (item.href) {
                 return (
                   <MenuItem key={item.name}>
-                    <a href={item.href} className={className}>
+                    <Link to={item.href} className={className}>
                       {item.name}
-                    </a>
+                    </Link>
                   </MenuItem>
                 );
               }
