@@ -184,14 +184,19 @@ declare namespace Navigation {
   namespace Prop {
     type NavBar = { navigationLinks: NavigationLink[] };
     type Profile = {
-      navigationLinks: NavigationLink[];
+      navigationLinks: (NavigationLink | NavigationButton)[];
     };
+  }
+
+  type NavigationButton = {
+    name: string;
+    onClick: () => void;
+    current: boolean;
   }
 
   type NavigationLink = {
     name: string;
-    href?: string;
+    href: string;
     current: boolean;
-    onClick?: () => void;
   };
 }

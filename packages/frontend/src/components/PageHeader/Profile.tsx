@@ -60,7 +60,7 @@ export function ProfileDesktop({ navigationLinks }: Navigation.Prop.Profile) {
             {navigationLinks.map((item) => {
               const className =
                 "block px-4 py-2 text-sm text-typey-primary data-[focus]:bg-typey-primary-light data-[focus]:text-white";
-              if (item.href) {
+              if ("href" in item) {
                 return (
                   <MenuItem key={item.name}>
                     <Link to={item.href} className={className}>
@@ -70,7 +70,7 @@ export function ProfileDesktop({ navigationLinks }: Navigation.Prop.Profile) {
                 );
               }
 
-              if (item.onClick) {
+              if ("onClick" in item) {
                 return (
                   <MenuItem key={item.name}>
                     <div
@@ -119,7 +119,7 @@ export function ProfileMobile({ navigationLinks }: Navigation.Prop.Profile) {
         {navigationLinks.map((item) => {
           const className =
             "block rounded-md px-3 py-2 text-base font-medium text-typey-primary hover:bg-typey-primary-light hover:text-white";
-          if (item.href) {
+          if ("href" in item) {
             return (
               <DisclosureButton
                 key={item.name}
@@ -132,7 +132,7 @@ export function ProfileMobile({ navigationLinks }: Navigation.Prop.Profile) {
             );
           }
 
-          if (item.onClick) {
+          if ("onClick" in item) {
             return (
               <DisclosureButton
                 key={item.name}
