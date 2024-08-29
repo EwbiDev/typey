@@ -19,7 +19,7 @@ export function ProfileDesktop({ navigationLinks }: Navigation.Prop.Profile) {
   }
 
   return (
-    <div className="hidden md:ml-4 md:flex md:flex-shrink-0 md:items-center">
+    <div className="hidden md:ml-4 md:flex md:flex-shrink-0 md:items-center md:space-x-4">
       {!auth.user && <NavItemMap navigationLinks={navigationLinks} />}
 
       {/* Profile dropdown */}
