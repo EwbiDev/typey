@@ -16,8 +16,12 @@ export default function App() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(getCurrentUser());
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      dispatch(getCurrentUser());
+    }
   }, [dispatch]);
+  
   return (
     <>
       <div className="flex h-screen w-screen items-center justify-center bg-typey-background text-typey-default">
