@@ -21,3 +21,22 @@ export function NavItem({ href, current, name }: Navigation.NavigationLink) {
     </DisclosureButton>
   );
 }
+
+type NavItemMapProp = {
+  navigationLinks: Navigation.NavigationLink[];
+};
+
+export function NavItemMap({ navigationLinks }: NavItemMapProp) {
+  return (
+    <>
+      {navigationLinks.map((item) => (
+        <NavItem
+          key={item.name}
+          name={item.name}
+          href={item.href}
+          text={item.text}
+        />
+      ))}
+    </>
+  );
+}
