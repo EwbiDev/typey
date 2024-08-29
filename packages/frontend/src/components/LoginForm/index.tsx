@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import Center from "../Center";
 import Container from "../Container";
 import { ErrorMessage } from "../ErrorMessage";
 import Input from "../Input";
@@ -47,7 +48,7 @@ export default function LoginForm() {
   return (
     <>
       <Container>
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+        <Center>
           <div className="bg-typey-default px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               {auth.error && <ErrorMessage message={auth.error.message} />}
@@ -82,7 +83,7 @@ export default function LoginForm() {
               Register here!
             </a>
           </p>
-        </div>
+        </Center>
       </Container>
     </>
   );
