@@ -62,7 +62,7 @@ export default function RegistrationForm() {
         <p className="mt-10 text-center text-sm text-typey-primary">
           Have an account?{" "}
           <Link
-            to="/register"
+            to="/login"
             className="font-semibold leading-6 text-typey-secondary hover:text-typey-default"
           >
             Log in here!
