@@ -2,12 +2,15 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
-import { passageApi } from "../../utils/api";
-import { Passage } from "../../types/types";
+import Container from "../Container";
+import Center from "../Center";
+import Card from "../Card";
+import { ErrorMessage } from "../ErrorMessage";
 import Input from "../Input";
 import SubmitInput from "../SubmitInput";
 
-import Container from "../Container";
+import { passageApi } from "../../utils/api";
+import { Passage } from "../../types/types";
 
 interface ErrorDetails {
   message: string;
@@ -54,36 +57,41 @@ export default function PassageCreate() {
 
   return (
     <Container>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col justify-center gap-8"
-      >
-        <h2 className=" text-2xl">Create a new passage</h2>
-        <Input
-          inputType="text"
-          label="input"
-          placeholder=""
-          register={register}
-          minLength={8}
-          fieldError={errors.input}
-          required
-        />
-        <SubmitInput type={"secondaryFull"} errors={errors} />
-      </form>
-      {newPassageId && (
-        <div className="flex flex-col justify-between gap-4">
-          <h2 className="text-3xl text-typey-primary underline hover:text-typey-default">
-            <Link to={`/passage/${newPassageId}`}>
-              Passage{" "}
-              <span className=" text-typey-secondary">#{newPassageId}:</span>
-            </Link>
-          </h2>
-          <p>{createdPassageText}</p>
-        </div>
-      )}
-      {!submitSuccess && errorDetails && (
-        <FailureMessage message={errorDetails.message} />
-      )}
+      <Center>
+        <h2 className="mb-10 text-center text-2xl font-semibold text-typey-primary">
+          Create a new passage
+        </h2>
+        <Card>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            {!submitSuccess && errorDetails && (
+              <ErrorMessage message={errorDetails.message} />
+            )}
+            <Input
+              inputType="text"
+              label="input"
+              placeholder=""
+              register={register}
+              minLength={8}
+              fieldError={errors.input}
+              required
+            />
+            <SubmitInput type={"secondaryFull"} text="Create passage" />
+          </form>
+          {newPassageId && (
+            <div className="flex flex-col justify-between gap-4">
+              <h2 className="text-3xl text-typey-primary underline hover:text-typey-default">
+                <Link to={`/passage/${newPassageId}`}>
+                  Passage{" "}
+                  <span className=" text-typey-secondary">
+                    #{newPassageId}:
+                  </span>
+                </Link>
+              </h2>
+              <p>{createdPassageText}</p>
+            </div>
+          )}
+        </Card>
+      </Center>
     </Container>
   );
 }
