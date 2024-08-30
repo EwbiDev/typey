@@ -50,7 +50,11 @@ export default function LoginForm() {
     <>
       <Container>
         <Center>
+          <h2 className="mb-10 text-center text-2xl font-semibold text-typey-primary">
+            Log in
+          </h2>
           <Card>
+            {/* TODO: Needs a header */}
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               {auth.error && <ErrorMessage message={auth.error.message} />}
               <Input
