@@ -13,6 +13,7 @@ export const registerUser = createAsyncThunk<
 >("auth/register", async (userData: Dto.UserLogin, thunkAPI) => {
   try {
     const response = await instance.post("/users", userData);
+    localStorage.setItem("accessToken", response.data.accessToken);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
