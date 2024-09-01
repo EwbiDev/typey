@@ -7,21 +7,41 @@ import {
   Param,
   Delete,
   NotFoundException,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+
 import { PassagesService } from './passages.service';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+
+import { PassageEntity } from './entities/passage.entity';
 import { CreatePassageDto } from './dto/create-passage.dto';
 import { UpdatePassageDto } from './dto/update-passage.dto';
-import { PassageEntity } from './entities/passage.entity';
+
+interface ReqCurrentUser {
+  user: {
+    userId: number;
+    username: string;
+  };
+}
 
 @ApiTags('passages')
 @Controller('passages')
 export class PassagesController {
   constructor(private readonly passagesService: PassagesService) {}
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createPassageDto: CreatePassageDto) {
-    return this.passagesService.create(createPassageDto);
+  create(
+    @Body() createPassageDto: CreatePassageDto,
+    @Req() { user }: ReqCurrentUser,
+  ) {
+    return this.passagesService.create({
+      ...createPassageDto,
+      authorId: user.userId,
+    });
   }
 
   @Get()

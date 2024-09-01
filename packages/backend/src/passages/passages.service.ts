@@ -3,13 +3,17 @@ import { CreatePassageDto } from './dto/create-passage.dto';
 import { UpdatePassageDto } from './dto/update-passage.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
+interface CreatePassageData extends CreatePassageDto {
+  authorId: number;
+}
+
 @Injectable()
 export class PassagesService {
   constructor(private prisma: PrismaService) {}
 
-  create(createPassageDto: CreatePassageDto) {
+  create(createPassageData: CreatePassageData) {
     return this.prisma.passage.create({
-      data: createPassageDto,
+      data: createPassageData,
     });
   }
 

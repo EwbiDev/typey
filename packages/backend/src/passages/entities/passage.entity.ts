@@ -6,6 +6,12 @@ export class PassageEntity implements Passage {
   id: number;
 
   @ApiProperty()
+  authorId: number;
+
+  @ApiProperty()
+  title: string;
+
+  @ApiProperty()
   text: string;
 
   @ApiProperty()

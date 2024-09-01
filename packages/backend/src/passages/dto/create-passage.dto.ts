@@ -5,6 +5,14 @@ export class CreatePassageDto {
   @ApiProperty({
     type: String,
     description: 'Passage Text',
+    example: 'My write of passage',
+  })
+  @IsString()
+  title: string;
+
+  @ApiProperty({
+    type: String,
+    description: 'Passage Text',
     example: 'Passages are a simple way to convey text over the internet',
   })
   @IsString()
