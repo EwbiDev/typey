@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
@@ -9,50 +8,23 @@ import { ErrorMessage } from "../ErrorMessage";
 import Input from "../Input";
 import SubmitInput from "../SubmitInput";
 
-import { passageApi } from "../../utils/api";
-import { Passage } from "../../types/types";
-
-interface ErrorDetails {
-  message: string;
-  error: string;
-  statusCode?: number;
-}
+import { Dto } from "../../types/types";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../app/store";
+import { submitNewPassage } from "../../features/newPassage/newPassageActions";
 
 export default function PassageCreate() {
+  const dispatch = useDispatch<AppDispatch>();
+  const newPassage = useSelector((state: RootState) => state.newPassage);
+
   const {
     register,
-    reset,
     handleSubmit,
     formState: { errors },
-  } = useForm<Passage.NewPassageFormData>();
-  const [submitSuccess, setSubmitSuccess] = useState<boolean>();
-  const [errorDetails, setErrorDetails] = useState<ErrorDetails>();
+  } = useForm<Dto.NewPassage>();
 
-  const [newPassageId, setNewPassageId] = useState<number>();
-  const [createdPassageText, setCreatedPassageText] = useState<string>();
-
-  const onSubmit: SubmitHandler<Passage.NewPassageFormData> = async (data) => {
-    const response = await passageApi.post(data.input);
-
-    if (response && response?.status >= 201 && response?.status < 400) {
-      setSubmitSuccess(true);
-      setCreatedPassageText(response.data.text);
-      setNewPassageId(response.data.id);
-      reset();
-      return;
-    }
-
-    if (response?.data?.error) {
-      setErrorDetails(response.data);
-      setSubmitSuccess(false);
-      return;
-    }
-
-    setErrorDetails({
-      message: "Unable to connect to server, please try again later",
-      error: "No connection",
-    });
-    setSubmitSuccess(false);
+  const onSubmit: SubmitHandler<Dto.NewPassage> = async (data) => {
+    dispatch(submitNewPassage(data));
   };
 
   return (
@@ -63,31 +35,40 @@ export default function PassageCreate() {
         </h2>
         <Card>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            {!submitSuccess && errorDetails && (
-              <ErrorMessage message={errorDetails.message} />
+            {newPassage.error && (
+              <ErrorMessage message={newPassage.error.message} />
             )}
             <Input
               inputType="text"
-              label="input"
+              label="title"
+              placeholder=""
+              register={register}
+              fieldError={errors.title}
+              required
+            />
+            <Input
+              inputType="text"
+              label="text"
               placeholder=""
               register={register}
               minLength={8}
-              fieldError={errors.input}
+              fieldError={errors.text}
               required
             />
             <SubmitInput type={"secondaryFull"} text="Create passage" />
           </form>
-          {newPassageId && (
+          {newPassage.passage && (
             <div className="flex flex-col justify-between gap-4">
               <h2 className="text-3xl text-typey-primary underline hover:text-typey-default">
-                <Link to={`/passage/${newPassageId}`}>
+                <Link to={`/passage/${newPassage.passage.id}`}>
                   Passage{" "}
                   <span className=" text-typey-secondary">
-                    #{newPassageId}:
+                    #{newPassage.passage.id}:
                   </span>
                 </Link>
               </h2>
-              <p>{createdPassageText}</p>
+              <p className="text-typey-primary">{newPassage.passage.title}</p>
+              <p className="text-typey-primary">{newPassage.passage.text}</p>
             </div>
           )}
         </Card>
