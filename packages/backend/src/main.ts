@@ -28,6 +28,7 @@ async function bootstrap() {
     .setDescription('api endpoint for Typey')
     .setVersion('1.0')
     .setBasePath('api/v1')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('api', app, document);
