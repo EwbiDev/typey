@@ -137,6 +137,19 @@ declare namespace Dto {
 
   type Jwt = {
     accessToken: string;
+  };
+
+  type NewPassage = {
+    title: string;
+    text: string;
+  };
+
+  type Passage = {
+    title: string;
+    text: string;
+    id: number;
+    createdAt: string;
+    updatedAt: string;
   }
 
   type User = {
@@ -187,15 +200,15 @@ declare namespace Navigation {
       navigationLinks: (NavigationLink | NavigationButton)[];
     };
     type NavItem = {
-      navigationLink: NavigationLink | NavigationButton
-    }
+      navigationLink: NavigationLink | NavigationButton;
+    };
   }
 
   type NavigationButton = {
     name: string;
     onClick: () => void;
     text: string;
-  }
+  };
 
   type NavigationLink = {
     name: string;
