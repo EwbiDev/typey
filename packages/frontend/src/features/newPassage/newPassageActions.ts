@@ -12,7 +12,12 @@ export const submitNewPassage = createAsyncThunk<
   { rejectValue: Dto.ErrorResponse }
 >("newPassage/submit", async (passageData: Dto.NewPassage, thunkAPI) => {
   try {
-    const response = await instance.post("/passages", passageData);
+    const token = localStorage.getItem("accessToken") ?? "";
+    const response = await instance.post("/passages", passageData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
