@@ -14,17 +14,21 @@ datasource db {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  email        String?  @unique
-  username     String   @unique
+  id           Int       @id @default(autoincrement())
+  email        String?   @unique
+  username     String    @unique
   passwordHash String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  Passage      Passage[]
 }
 
 model Passage {
   id        Int      @id @default(autoincrement())
+  authorId  Int
+  title     String
   text      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  author    User     @relation(fields: [authorId], references: [id])
 }
